@@ -3,16 +3,17 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 import { IUser } from "@/types";
 import { getCurrentUser } from "@/lib/appwrite/api";
+import React from "react";
 
 export const INITIAL_USER = {
-  id: "",
-  name: "",
-  username: "",
-  email: "",
-  imageUrl: "",
-  bio: "",
-  followers: "",
-  verified: "",
+  id: '',
+  name: '',
+  username: '',
+  email: '',
+  imageUrl: '',
+  bio: '',
+  followers: [],
+  verified: false,
 };
 
 const INITIAL_STATE = {
@@ -32,6 +33,14 @@ const INITIAL_STATE = {
 };
 
 type IContextType = {
+  id: string;
+  name: string;
+  username: string;
+  email: string;
+  imageUrl: string;
+  bio: string;
+  followers: any[];
+  verified: boolean;
   user: IUser;
   isLoading: boolean;
   isAuthenticated: boolean;
@@ -42,7 +51,6 @@ type IContextType = {
   forex: any[];
   coin: any[];
   toggleMode: () => void;
-  loading: boolean;
   fetchData: () => void;
   fetchForexData: () => void;
 };
@@ -51,12 +59,10 @@ const AuthContext = createContext<IContextType>(INITIAL_STATE);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const navigate = useNavigate();
-  const [user, setUser] = useState<IUser>(INITIAL_USER);
+  const [user, setUser] = useState<IUser | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [mode, setMode] = useState("light");
-  const [loading, setLoading] = useState(false);
-  const [currentUser, setCurrentUser] = useState(null);
   const [coin, setCoin] = useState([]);
   const [forex, setForex] = useState([]);
 
@@ -82,7 +88,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           email: currentAccount.email,
           imageUrl: currentAccount.imageUrl,
           bio: currentAccount.bio,
-          // followers: currentAccount.followers,
+          followers: currentAccount.followers,
           verified: currentAccount.verified,
         });
         setIsAuthenticated(true);
@@ -149,14 +155,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     fetchForexData();
   }, []);
 
-  useEffect(() => {
-    const storedUserDetails = localStorage.getItem("userInfo");
+  // useEffect(() => {
+  //   const storedUserDetails = localStorage.getItem("userInfo");
 
-    if (storedUserDetails) {
-      const userInfo = JSON.parse(storedUserDetails);
-      setCurrentUser(userInfo);
-    }
-  }, []);
+  //   if (storedUserDetails) {
+  //     const userInfo = JSON.parse(storedUserDetails);
+  //     setCurrentUser(userInfo);
+  //   }
+  // }, []);
 
 
   const value: IContextType = {
@@ -166,7 +172,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     mode,
     forex,
     coin,
-    loading,
     fetchData,
     fetchForexData,
     isLoading,

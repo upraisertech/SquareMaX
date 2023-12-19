@@ -30,17 +30,16 @@ export type IUpdatePost = {
   location?: string;
   tags?: string;
 };
-
-export type IUser = {
-  verified: boolean;
+export interface IUser {
   id: string;
   name: string;
   username: string;
   email: string;
   imageUrl: string;
   bio: string;
-};
-
+  followers: string[]; // Update the type to match your data structure
+  verified: boolean;
+}
 export type INewUser = {
   name: string;
   email: string;
