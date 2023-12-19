@@ -1,26 +1,37 @@
-import React, { useEffect, useState } from "react";
+import React, { FC, ReactElement, useEffect, useState } from "react";
 import Results from "./Results";
 // import {useUserContext} from "@/context/AuthContext";
-import { forex } from "../Data/Forex";
+import { ICountryListsProps, forexLists } from "../Data/Forex";
 
 interface CalculatorProps {
-  // Define props if any
+  forex: ICountryListsProps[];
+  selectedInstrument: ICountryListsProps | undefined;
+  setSelectedInstrument: React.Dispatch<any>;
+  handleInstrumentSelect: React.Dispatch<any>;
 }
 
-function Calculator(_props: CalculatorProps) {
-  // const { forex } = useUserContext();
+export interface IListsProps {
+  positionSize: number;
+  moneyRisk: number;
+  coin: number;
+}
+export interface ICountriesProps {
+  forex: IListsProps[];
+}
 
+const Calculator: FC<CalculatorProps> = ({selectedInstrument,setSelectedInstrument}): ReactElement => {
   const [accountBalance, setAccountBalance] = useState<string>("");
   const [riskPercentage, setRiskPercentage] = useState<string>("");
   const [stopLossPips, setStopLossPips] = useState<string>("");
   const [positionSize, setPositionSize] = useState<string | null>(null);
   const [moneyRisk, setMoneyRisk] = useState<number | null>(null);
   // const [selectedCurrencyPair, setSelectedCurrencyPair] = useState<string>("");
-  const [selectedInstrument, setSelectedInstrument] = useState();
+  // const [selectedInstrument, setSelectedInstrument] = useState();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const handleInstrumentSelect = () => {
-    setSelectedInstrument(forex);
+    setSelectedInstrument(forexLists);
+    setIsOpen(!isOpen);
   };
 
   // const handleCurrencyPairChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -75,16 +86,16 @@ function Calculator(_props: CalculatorProps) {
   }, []);
 
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [filteredHistory, setFilteredHistory] = useState<ForexData[]>([]);
+  const [filteredHistory, setFilteredHistory] = useState(forexLists);
   
   useEffect(() => {
-    setFilteredHistory([...forex]);
+    setFilteredHistory(forexLists);
   }, []);
 
   const handleSearch = (value: string) => {
     setSearchTerm(value);
     setFilteredHistory(
-      forex.filter(
+      forexLists.filter(
         (forexItem: { symbol: string; full_name: string; description: string; }) =>
           forexItem.symbol.toLowerCase().includes(value.toLowerCase()) ||
           forexItem.full_name.toLowerCase().includes(value.toLowerCase()) ||
@@ -138,10 +149,7 @@ function Calculator(_props: CalculatorProps) {
                     <div
                       key={index + 1}
                       className="text-[13px] px-2 py-3 hover:bg-gray-100"
-                      onClick={() => {
-                        handleInstrumentSelect(coin);
-                        setIsOpen(!isOpen);
-                      }}
+                      onClick={() => {handleInstrumentSelect(coin)}}
                     >
                       <div className="flex flex-row items-center justify-between hover:bg-gray-100">
                         <div className="py-1">
@@ -245,7 +253,3 @@ function Calculator(_props: CalculatorProps) {
 }
 
 export default Calculator;
-function fetchForexData() {
-  throw new Error("Function not implemented.");
-}
-

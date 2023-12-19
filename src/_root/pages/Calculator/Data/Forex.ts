@@ -1,4 +1,18 @@
-export const forex = [
+export interface ICountryListsProps {
+  full_name: string;
+  symbol: string;
+  description: string;
+  exchange: string;
+  ticker: string;
+  type: string;
+  watchlist: boolean;
+  popular: boolean;
+}
+
+export interface ICountriesProps {
+  forex: ICountryListsProps[];
+}
+  export const forexLists: ICountryListsProps[] = [
   {
     symbol: "AUD/CAD",
     full_name: "Australian Dollar / Canadian Dollar",

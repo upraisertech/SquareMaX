@@ -1,11 +1,13 @@
-import React from "react";
+import { FC, ReactElement } from "react";
+import { IListsProps } from ".";
+
 
 interface CryptoCalResultsProps {
+  forex: IListsProps[];
   positionSize: number;
   moneyRisk: number;
 }
-
-const ForexCalResults: React.FC<CryptoCalResultsProps> = ({ positionSize, moneyRisk }) => {
+  const ForexCalResults: FC<CryptoCalResultsProps> = ({positionSize, moneyRisk}): ReactElement => {
 
   return (
     <div className={`md:flex md:flex-col grid grid-cols-2 mb-[5em] gap-3 text-start items-center justify-center`}>

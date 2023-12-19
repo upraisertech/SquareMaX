@@ -1,13 +1,18 @@
-import React from "react";
+import { FC, ReactElement } from "react";
+import { IListsProps } from ".";
 
 interface Props {
+  forex: IListsProps[];
   positionSize: number;
   moneyRisk: number;
 }
-  const CryptoCalResults: React.FC<Props> = ({ positionSize, moneyRisk }) => {
-
+const CryptoCalResults: FC<Props> = ({
+  positionSize,
+  moneyRisk,
+}): ReactElement => {
   return (
-    <div className={`md:flex md:flex-col grid grid-cols-2 gap-3 text-start items-center justify-center`}>
+    <div
+      className={`md:flex md:flex-col grid grid-cols-2 gap-3 text-start items-center justify-center`}>
       <div className="">
         <div className="text-xs font-normal leading-[18px]">Money at risk</div>
         <input
@@ -19,7 +24,9 @@ interface Props {
       </div>
 
       <div className="">
-        <div className="text-xs font-normal leading-[18px]">Position Size (units)</div>
+        <div className="text-xs font-normal leading-[18px]">
+          Position Size (units)
+        </div>
         <input
           className="font-bold bg-transparent focus:outline-none border-none"
           type="text"
@@ -59,6 +66,6 @@ interface Props {
       </div>
     </div>
   );
-}
+};
 
 export default CryptoCalResults;

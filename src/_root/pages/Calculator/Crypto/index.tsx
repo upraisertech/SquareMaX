@@ -9,14 +9,14 @@ interface Coin {
   iconUrl: string;
   // Add any other properties here as needed
 }
-
-interface Instrument {
-  name: string;
-  symbol: string;
-  iconUrl: string;
-  price: number;
-  // Add any other properties here as needed
+export interface IListsProps {
+  positionSize: number;
+  moneyRisk: number;
 }
+export interface ICountriesProps {
+  forex: IListsProps[];
+}
+
 function CryptoCal() {
   const { fetchData, coin } = useUserContext();
   const [accountBalance, setAccountBalance] = useState<string>("");
@@ -24,7 +24,7 @@ function CryptoCal() {
   const [stopLossRange, setStopLossRange] = useState<number | string>("");
   const [positionSize, setPositionSize] = useState<string | null>(null);
   const [moneyRisk, setMoneyRisk] = useState<number | null>(null);
-  const [selectedCurrencyPair, setSelectedCurrencyPair] = useState<string>("");
+  // const [selectedCurrencyPair, setSelectedCurrencyPair] = useState<string>("");
   const [selectedInstrument, setSelectedInstrument] = useState<Coin | null>(
     null
   );
@@ -239,8 +239,8 @@ function CryptoCal() {
             </div>
             <input
               type="number"
-              placeholder="Price"
-              value={(selectedInstrument?.price * 1).toFixed(2)}
+              placeholder={price}
+              value={selectedInstrument ? (selectedInstrument.price) : ""}
               onChange={handlePriceChange}
               className="input text-black p-3 input-bordered rounded-md w-full"
             />

@@ -103,7 +103,11 @@ const SettingsHeader = () => {
       )}
       {activeTab === 2 && (
         <div>
-          <Forex />
+          <Forex forex={[]} selectedInstrument={undefined} setSelectedInstrument={function (): void {
+            throw new Error("Function not implemented.");
+          } } handleInstrumentSelect={function (): void {
+            throw new Error("Function not implemented.");
+          } } />
         </div>
       )}
       {activeTab === 3 && (
