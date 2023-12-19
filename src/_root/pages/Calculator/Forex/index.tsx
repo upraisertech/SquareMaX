@@ -10,13 +10,6 @@ interface CalculatorProps {
   handleInstrumentSelect: React.Dispatch<any>;
 }
 
-interface Coin {
-  symbol: string;
-  full_name: string;
-  price: string;
-  iconUrl: string;
-  // Add any other properties here as needed
-}
 export interface IListsProps {
   positionSize: number;
   moneyRisk: number;
@@ -36,7 +29,7 @@ const Calculator: FC<CalculatorProps> = ({selectedInstrument,setSelectedInstrume
   // const [selectedInstrument, setSelectedInstrument] = useState();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const handleInstrumentSelect = (forexLists: Coin) => {
+  const handleInstrumentSelect = (forexLists: any) => {
     setSelectedInstrument(forexLists);
   };
 
@@ -156,7 +149,7 @@ const Calculator: FC<CalculatorProps> = ({selectedInstrument,setSelectedInstrume
                       key={index + 1}
                       className="text-[13px] px-2 py-3 hover:bg-gray-100"
                       onClick={() => {
-                        handleInstrumentSelect(1);
+                        handleInstrumentSelect(fore);
                         setIsOpen(!isOpen);
                       }}>
                       <div className="flex flex-row items-center justify-between hover:bg-gray-100">
