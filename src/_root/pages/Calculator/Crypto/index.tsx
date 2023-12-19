@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Results from "./Results";
-import {useUserContext} from "@/context/AuthContext";
+import { useUserContext } from "@/context/AuthContext";
 
 interface Coin {
   symbol: string;
@@ -25,7 +25,9 @@ function CryptoCal() {
   const [positionSize, setPositionSize] = useState<string | null>(null);
   const [moneyRisk, setMoneyRisk] = useState<number | null>(null);
   const [selectedCurrencyPair, setSelectedCurrencyPair] = useState<string>("");
-  const [selectedInstrument, setSelectedInstrument] = useState<Instrument | null>(null);
+  const [selectedInstrument, setSelectedInstrument] = useState<Coin | null>(
+    null
+  );
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [price, setPrice] = useState<string>("");
 
@@ -52,7 +54,9 @@ function CryptoCal() {
         parseFloat(riskPercentage.replace("%", "")) / 100;
       // Calculate the position size
       const stopLossAmount = parseFloat(accountBalance) * riskPercentageDecimal;
-      const size = (stopLossAmount / parseFloat(stopLossRange as string)).toFixed(4);
+      const size = (
+        stopLossAmount / parseFloat(stopLossRange as string)
+      ).toFixed(4);
       setPositionSize(size);
       setMoneyRisk(parseFloat(accountBalance) * riskPercentageDecimal);
       localStorage.setItem("accountBalance", accountBalance);
@@ -61,7 +65,9 @@ function CryptoCal() {
     }
   };
 
-  const handleRiskPercentageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleRiskPercentageChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const value = e.target.value.replace("%", "");
     setRiskPercentage(value);
   };
@@ -112,14 +118,12 @@ function CryptoCal() {
             <div className="label">
               <span className="label-text">Instrument</span>
             </div>
-            <div className="py-3 px-3 w-full text-start rounded-3 border-1 bg-white text-black items-start justify-center focus-within:ring-1 ring-primary-A1">
+            <div className="py-3 px-3 w-full text-start rounded-md border-1 bg-white text-black items-start justify-center focus-within:ring-1 ring-primary-A1">
               <div
                 onClick={HandleApi}
-                className="flex flex-col gap-2.5 items-start justify-start w-auto"
-              >
+                className="flex flex-col gap-2.5 items-start justify-start w-auto">
                 <div
-                  className={`text-[13px] justify-center items-center gap-[5px] inline-flex cursor-pointer`}
-                >
+                  className={`text-[13px] justify-center items-center gap-[5px] inline-flex cursor-pointer`}>
                   <div className="font-normal leading-[18px]">
                     {selectedInstrument ? (
                       <div className="flex flex-row justify-center items-center gap-3">
@@ -153,8 +157,7 @@ function CryptoCal() {
                       onClick={() => {
                         handleInstrumentSelect(coin);
                         setIsOpen(!isOpen);
-                      }}
-                    >
+                      }}>
                       <div className="flex flex-row gap-3 items-center justify-start hover:bg-gray-100">
                         <img
                           src={coin.iconUrl}
@@ -176,7 +179,7 @@ function CryptoCal() {
             <div className="">
               <span className="label-text">Deposit currency</span>
             </div>
-            <select className="select mt-2 p-3 select-bordered bg-white text-black w-full">
+            <select className="select mt-2 p-3 rounded-md select-bordered bg-white text-black w-full">
               <option disabled selected>
                 Deposit currency
               </option>
@@ -246,8 +249,7 @@ function CryptoCal() {
 
         <button
           className="px-12 py-3 text-white rounded-full bg-primary-A1 w-full"
-          onClick={calculatePositionSize}
-        >
+          onClick={calculatePositionSize}>
           Calculate
         </button>
       </div>

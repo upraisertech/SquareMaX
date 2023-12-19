@@ -34,17 +34,17 @@ const INITIAL_STATE = {
 type IContextType = {
   user: IUser;
   isLoading: boolean;
-  setUser: React.Dispatch<React.SetStateAction<IUser>>;
   isAuthenticated: boolean;
+  setUser: React.Dispatch<React.SetStateAction<IUser>>;
   setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
   checkAuthUser: () => Promise<boolean>;
-  mode: false,
-  forex: false,
-  coin: false,
-  toggleMode: false,
-  loading: false,
-  fetchData: () => {},
-  fetchForexData: () => {},
+  mode: string;
+  forex: any[];
+  coin: any[];
+  toggleMode: () => void;
+  loading: boolean;
+  fetchData: () => void;
+  fetchForexData: () => void;
 };
 
 const AuthContext = createContext<IContextType>(INITIAL_STATE);
@@ -158,17 +158,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
-  const value = {
+
+  const value: IContextType = {
     user,
     setUser,
     toggleMode,
     mode,
     forex,
     coin,
-    currentUser,
-    toggleMode,
     loading,
-    setLoading,
     fetchData,
     fetchForexData,
     isLoading,
@@ -180,4 +178,4 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
-export const useUserContext = () => useContext(AuthContext);
+export const useUserContext = (): IContextType => useContext(AuthContext);

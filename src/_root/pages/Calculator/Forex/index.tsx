@@ -1,21 +1,21 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Results from "./Results";
-import {useUserContext} from "@/context/AuthContext";
+// import {useUserContext} from "@/context/AuthContext";
 import { forex } from "../Data/Forex";
 
 interface CalculatorProps {
   // Define props if any
 }
 
-function Calculator(props: CalculatorProps) {
-  const { forex } = useUserContext();
+function Calculator(_props: CalculatorProps) {
+  // const { forex } = useUserContext();
 
   const [accountBalance, setAccountBalance] = useState<string>("");
   const [riskPercentage, setRiskPercentage] = useState<string>("");
   const [stopLossPips, setStopLossPips] = useState<string>("");
   const [positionSize, setPositionSize] = useState<string | null>(null);
   const [moneyRisk, setMoneyRisk] = useState<number | null>(null);
-  const [selectedCurrencyPair, setSelectedCurrencyPair] = useState<string>("");
+  // const [selectedCurrencyPair, setSelectedCurrencyPair] = useState<string>("");
   const [selectedInstrument, setSelectedInstrument] = useState();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -23,14 +23,14 @@ function Calculator(props: CalculatorProps) {
     setSelectedInstrument(forex);
   };
 
-  const handleCurrencyPairChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedCurrencyPair(e.target.value);
-  };
+  // const handleCurrencyPairChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  //   setSelectedCurrencyPair(e.target.value);
+  // };
 
-  const HandleApi = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    setIsOpen(!isOpen);
-    fetchForexData();
-  };
+  // const HandleApi = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  //   setIsOpen(!isOpen);
+  //   fetchForexData();
+  // };
 
   const calculatePositionSize = () => {
     if (stopLossPips === "0") {

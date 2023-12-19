@@ -1,11 +1,10 @@
 import React from "react";
 
-interface CryptoCalResultsProps {
+interface Props {
   positionSize: number;
   moneyRisk: number;
 }
-
-const CryptoCalResults: React.FC<CryptoCalResultsProps> = ({ positionSize, moneyRisk }) => {
+  const CryptoCalResults: React.FC<Props> = ({ positionSize, moneyRisk }) => {
 
   return (
     <div className={`md:flex md:flex-col grid grid-cols-2 gap-3 text-start items-center justify-center`}>
