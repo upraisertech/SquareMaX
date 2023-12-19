@@ -11,8 +11,8 @@ const SettingsHeader = () => {
   };
 
   return (
-    <div className="w-full mt-[-6em]">
-      <div className="flex border-b gap-5 mb-2 mx-auto items-center justify-between">
+    <div className="">
+      <div className="flex border-b gap-5 my-4 mx-auto items-start justify-between">
         <button
           className={`py-2 text-[17px] h-[40px] focus:outline-none w-full
           ${
@@ -33,7 +33,7 @@ const SettingsHeader = () => {
             className={`py-2 text-[17px] h-[40px] focus:outline-none
             ${
               activeTab === 2 || activeTab === 3
-                ? "border-t-none border-b-[4px]"
+                ? "border-primary-A1 border-t-none border-b-[4px]"
                 : ""
             }`}>
             PositionSize

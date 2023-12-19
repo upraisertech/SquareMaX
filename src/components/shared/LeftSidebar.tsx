@@ -27,9 +27,14 @@ const LeftSidebar = () => {
 
   return (
     <nav className="leftsidebar">
-      <div className="flex flex-col gap-11">
-        <Link to="/" className="flex gap-3 items-center">
-          <h1 className="text-[20px]">SquaremaX</h1>
+      <div className="flex flex-col gap-6">
+        <Link to="/" className="flex gap-3 mb-3 items-center">
+          <img
+            src="/assets/icons/logo.png"
+            alt="logo"
+            className=""
+          />
+          <h1 className="text-[20px] font-bold">SquaremaX</h1>
         </Link>
 
         {isLoading || !user.email ? (

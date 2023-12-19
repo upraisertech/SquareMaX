@@ -22,6 +22,13 @@ const INITIAL_STATE = {
   setUser: () => {},
   setIsAuthenticated: () => {},
   checkAuthUser: async () => false as boolean,
+  mode: false,
+  forex: false,
+  coin: false,
+  toggleMode: false,
+  loading: false,
+  fetchData: () => {},
+  fetchForexData: () => {},
 };
 
 type IContextType = {

@@ -8,7 +8,7 @@ interface CryptoCalResultsProps {
 const CryptoCalResults: React.FC<CryptoCalResultsProps> = ({ positionSize, moneyRisk }) => {
 
   return (
-    <div className={`md:flex md:flex-col grid grid-cols-2 mb-[5em] gap-3 text-start items-center justify-center`}>
+    <div className={`md:flex md:flex-col grid grid-cols-2 gap-3 text-start items-center justify-center`}>
       <div className="">
         <div className="text-xs font-normal leading-[18px]">Money at risk</div>
         <input

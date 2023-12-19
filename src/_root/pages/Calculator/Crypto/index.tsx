@@ -17,7 +17,10 @@ interface Instrument {
   price: number;
   // Add any other properties here as needed
 }
-
+interface IContextType {
+  fetchData: () => void; // Example signature, adjust as per your function
+  // Other properties...
+}
 function CryptoCal() {
   const { fetchData, coin } = useUserContext();
   const [accountBalance, setAccountBalance] = useState<string>("");
