@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import Results from "./Results";
-import myContext from "@/context/data/myContext";
+import {useUserContext} from "@/context/AuthContext";
 import { forex } from "../Data/Forex";
 
 interface CalculatorProps {
@@ -8,8 +8,7 @@ interface CalculatorProps {
 }
 
 function Calculator(props: CalculatorProps) {
-  const context = useContext(myContext);
-  const { fetchForexData, mode } = context;
+  const { forex } = useUserContext();
 
   const [accountBalance, setAccountBalance] = useState<string>("");
   const [riskPercentage, setRiskPercentage] = useState<string>("");
@@ -86,7 +85,7 @@ function Calculator(props: CalculatorProps) {
     setSearchTerm(value);
     setFilteredHistory(
       forex.filter(
-        (forexItem) =>
+        (forexItem: { symbol: string; full_name: string; description: string; }) =>
           forexItem.symbol.toLowerCase().includes(value.toLowerCase()) ||
           forexItem.full_name.toLowerCase().includes(value.toLowerCase()) ||
           forexItem.description.toLowerCase().includes(value.toLowerCase())
@@ -95,7 +94,7 @@ function Calculator(props: CalculatorProps) {
   };
 
   return (
-    <div className="flex flex-col md:flex-row gap-12 md:w-full mx-3 text-start md:items-start justify-between">
+    <div className="flex flex-col gap-12 md:w-full mx-3 text-start md:items-start justify-between">
       <div className="flex flex-col gap-3 text-start items-center justify-center">
         <div className="flex flex-col md:flex-row gap-3 text-start items-center justify-center w-full md:w-[40em]">
           <div className="bg-none flex-col flex w-full">
@@ -246,3 +245,7 @@ function Calculator(props: CalculatorProps) {
 }
 
 export default Calculator;
+function fetchForexData() {
+  throw new Error("Function not implemented.");
+}
+

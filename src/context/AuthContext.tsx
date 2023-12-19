@@ -38,6 +38,13 @@ type IContextType = {
   isAuthenticated: boolean;
   setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
   checkAuthUser: () => Promise<boolean>;
+  mode: false,
+  forex: false,
+  coin: false,
+  toggleMode: false,
+  loading: false,
+  fetchData: () => {},
+  fetchForexData: () => {},
 };
 
 const AuthContext = createContext<IContextType>(INITIAL_STATE);

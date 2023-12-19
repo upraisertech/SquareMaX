@@ -1,15 +1,10 @@
-import React, { useContext, useState, ChangeEvent } from "react";
-import myContext from "@/context/data/myContext";
+import React, { useState, ChangeEvent } from "react";
+import {useUserContext} from "@/context/AuthContext";
 
 interface Props {}
-interface MyContextType {
-  mode: string;
-  // other properties if available
-}
 
 const PercentageCalculator: React.FC<Props> = () => {
-  const context = useContext<Partial<MyContextType>>(myContext);
-  const mode = context.mode || ""; 
+  const { mode } = useUserContext();
   const [value, setValue] = useState<string>("");
   const [percentage, setPercentage] = useState<string>("");
   const [result, setResult] = useState<string>("0");
@@ -41,7 +36,7 @@ const PercentageCalculator: React.FC<Props> = () => {
   };
 
   return (
-    <div className="flex flex-col p-3 md:w-[550px] mx-auto items-center justify-center" style={{ color: mode === "dark" ? "white" : "" }}>
+    <div className={`flex flex-col p-3 md:w-[550px] mx-auto items-center justify-center ${mode === "dark" ? "white" : ""}`}>
       <div className="text-2xl text-left font-bold mb-4 w-full">Percentage Calculator</div>
 
       <div className="flex flex-col md:flex-row gap-3 md:gap-6 text-start items-start justify-start w-full">

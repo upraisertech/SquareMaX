@@ -17,10 +17,6 @@ interface Instrument {
   price: number;
   // Add any other properties here as needed
 }
-interface IContextType {
-  fetchData: () => void; // Example signature, adjust as per your function
-  // Other properties...
-}
 function CryptoCal() {
   const { fetchData, coin } = useUserContext();
   const [accountBalance, setAccountBalance] = useState<string>("");
@@ -109,7 +105,7 @@ function CryptoCal() {
   }, []);
 
   return (
-    <div className="flex flex-col md:flex-row gap-12 md:w-full mx-3 text-start md:items-start justify-between">
+    <div className="flex flex-col gap-12 md:w-full mx-3 text-start md:items-start justify-between">
       <div className="flex flex-col gap-3 text-start items-center justify-center">
         <div className="flex flex-col md:flex-row gap-3 text-start items-center justify-center w-full md:w-[40em]">
           <div className="bg-none flex-col flex w-full">

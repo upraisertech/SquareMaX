@@ -4,7 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 
 import { AuthProvider } from "@/context/AuthContext";
 import { QueryProvider } from "@/lib/react-query/QueryProvider";
-import Provider from "./context/data/myState";
+// import Provider from "./context/data/myState";
 
 import App from "./App";
 
@@ -13,9 +13,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <BrowserRouter>
       <QueryProvider>
         <AuthProvider>
-        <Provider>
           <App />
-        </Provider>
         </AuthProvider>
       </QueryProvider>
     </BrowserRouter>
