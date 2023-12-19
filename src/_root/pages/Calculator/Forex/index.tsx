@@ -3,56 +3,56 @@ import Results from "./Results";
 import myContext from "@/context/data/myContext";
 import { forex } from "../Data/Forex";
 
-function Calculator() {
+interface CalculatorProps {
+  // Define props if any
+}
+
+function Calculator(props: CalculatorProps) {
   const context = useContext(myContext);
   const { fetchForexData, mode } = context;
-  const [instruments, setInstrument] = useState([]);
-  const [accountBalance, setAccountBalance] = useState("");
-  const [riskPercentage, setRiskPercentage] = useState("");
-  const [stopLossPips, setStopLossPips] = useState("");
-  const [positionSize, setPositionSize] = useState(null);
-  const [moneyRisk, setMoneyRisk] = useState(null);
-  const [selectedCurrencyPair, setSelectedCurrencyPair] = useState(""); // State to store the selected currency pair
-  const [selectedInstrument, setSelectedInstrument] = useState("");
-  const [isOpen, setIsOpen] = React.useState(false);
 
-  const handleInstrumentSelect = (forex: React.SetStateAction<string>) => {
+  const [accountBalance, setAccountBalance] = useState<string>("");
+  const [riskPercentage, setRiskPercentage] = useState<string>("");
+  const [stopLossPips, setStopLossPips] = useState<string>("");
+  const [positionSize, setPositionSize] = useState<string | null>(null);
+  const [moneyRisk, setMoneyRisk] = useState<number | null>(null);
+  const [selectedCurrencyPair, setSelectedCurrencyPair] = useState<string>("");
+  const [selectedInstrument, setSelectedInstrument] = useState();
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const handleInstrumentSelect = () => {
     setSelectedInstrument(forex);
   };
-  const handleCurrencyPairChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
-    setSelectedCurrencyPair(e.target.value); // Update the selected currency pair when the user makes a selection
+
+  const handleCurrencyPairChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedCurrencyPair(e.target.value);
   };
 
-  // Define the API endpoint URL
-  const HandleApi = (e) => {
+  const HandleApi = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     setIsOpen(!isOpen);
     fetchForexData();
   };
 
   const calculatePositionSize = () => {
-    if (stopLossPips === 0) {
+    if (stopLossPips === "0") {
       setPositionSize("Stop loss cannot be zero.");
     } else {
-      // Convert riskPercentage to a decimal
-      const riskPercentageDecimal =
-        parseFloat(riskPercentage.replace("%", "")) / 100;
-      // Calculate the position size
-      const stopLossAmount = accountBalance * riskPercentageDecimal;
-      const size = (stopLossAmount / stopLossPips).toFixed(4);
+      const riskPercentageDecimal = parseFloat(riskPercentage.replace("%", "")) / 100;
+      const stopLossAmount = parseFloat(accountBalance) * riskPercentageDecimal;
+      const size = (stopLossAmount / parseFloat(stopLossPips)).toFixed(4);
       setPositionSize(size);
-      setMoneyRisk(accountBalance * riskPercentageDecimal);
+      setMoneyRisk(parseFloat(accountBalance) * riskPercentageDecimal);
       localStorage.setItem("accountBalance", accountBalance);
       localStorage.setItem("riskPercentage", riskPercentage);
       localStorage.setItem("stopLossPips", stopLossPips);
     }
   };
 
-  const handleRiskPercentageChange = (e) => {
+  const handleRiskPercentageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace("%", "");
     setRiskPercentage(value);
   };
 
-  // Function to retrieve data from localStorage and update state
   const loadUserInputFromLocalStorage = () => {
     const savedAccountBalance = localStorage.getItem("accountBalance");
     const savedRiskPercentage = localStorage.getItem("riskPercentage");
@@ -71,21 +71,25 @@ function Calculator() {
     }
   };
 
-  // Load data from localStorage when the component mounts
   useEffect(() => {
     loadUserInputFromLocalStorage();
   }, []);
 
-  const [searchTerm, setSearchTerm] = useState("");
-  const [filteredHistory, setFilteredHistory] = useState(forex);
-  const handleSearch = (value) => {
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [filteredHistory, setFilteredHistory] = useState<ForexData[]>([]);
+  
+  useEffect(() => {
+    setFilteredHistory([...forex]);
+  }, []);
+
+  const handleSearch = (value: string) => {
     setSearchTerm(value);
     setFilteredHistory(
       forex.filter(
-        (forex) =>
-          forex.symbol.toLowerCase().includes(value.toLowerCase()) ||
-          forex.full_name.toLowerCase().includes(value.toLowerCase()) ||
-          forex.description.toLowerCase().includes(value.toLowerCase())
+        (forexItem) =>
+          forexItem.symbol.toLowerCase().includes(value.toLowerCase()) ||
+          forexItem.full_name.toLowerCase().includes(value.toLowerCase()) ||
+          forexItem.description.toLowerCase().includes(value.toLowerCase())
       )
     );
   };
@@ -98,7 +102,7 @@ function Calculator() {
             <div className="label">
               <span className="label-text">Instrument</span>
             </div>
-            <div className="py-3 px-3 w-full text-start rounded-3 border-1 bg-white text-black items-start justify-center focus-within:ring-1 ring-primary-A1">
+            <div className="py-3 px-3 w-full text-start rounded-md border-1 bg-white text-black items-start justify-center focus-within:ring-1 ring-primary-A1">
               <div
                 onClick={() => {
                   setIsOpen(!isOpen);
@@ -111,7 +115,7 @@ function Calculator() {
                   <div className="font-normal leading-[18px]">
                     {selectedInstrument ? (
                       <>
-                        {selectedInstrument.full_name} ({selectedInstrument.symbol})
+                        {selectedInstrument?.full_name} ({selectedInstrument?.symbol})
                       </>
                     ) : (
                       "Select Pair"
@@ -156,7 +160,7 @@ function Calculator() {
             <div className="">
               <span className="label-text">Deposit currency</span>
             </div>
-            <select className="select mt-2 select-bordered bg-white text-black w-full">
+            <select className="select mt-2 select-bordered rounded-md bg-white text-black p-3 w-full">
               <option disabled selected>
                 Deposit currency
               </option>
@@ -179,7 +183,7 @@ function Calculator() {
               placeholder="$$$$"
               value={accountBalance}
               onChange={(e) => setAccountBalance(e.target.value)}
-              className="input input-bordered rounded-md w-full"
+              className="input text-black p-3 input-bordered rounded-md w-full"
             />
           </label>
 
@@ -192,7 +196,7 @@ function Calculator() {
               placeholder="%"
               value={riskPercentage + "%"}
               onChange={handleRiskPercentageChange}
-              className="input input-bordered rounded-md w-full"
+              className="input text-black p-3 input-bordered rounded-md w-full"
             />
           </label>
         </div>
@@ -207,7 +211,7 @@ function Calculator() {
               placeholder="pips"
               value={stopLossPips}
               onChange={(e) => setStopLossPips(e.target.value)}
-              className="input input-bordered rounded-md w-full"
+              className="input text-black p-3 input-bordered rounded-md w-full"
             />
           </label>
 

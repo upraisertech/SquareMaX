@@ -178,7 +178,7 @@ function CryptoCal() {
             <div className="">
               <span className="label-text">Deposit currency</span>
             </div>
-            <select className="select mt-2 select-bordered bg-white text-black w-full">
+            <select className="select mt-2 p-3 select-bordered bg-white text-black w-full">
               <option disabled selected>
                 Deposit currency
               </option>
@@ -197,7 +197,7 @@ function CryptoCal() {
               placeholder="$$$$"
               value={accountBalance}
               onChange={(e) => setAccountBalance(e.target.value)}
-              className="input input-bordered rounded-md w-full"
+              className="input text-black p-3 input-bordered rounded-md w-full"
             />
           </label>
 
@@ -210,7 +210,7 @@ function CryptoCal() {
               placeholder="%"
               value={riskPercentage + "%"}
               onChange={handleRiskPercentageChange}
-              className="input input-bordered rounded-md w-full"
+              className="input text-black p-3 input-bordered rounded-md w-full"
             />
           </label>
         </div>
@@ -225,7 +225,7 @@ function CryptoCal() {
               placeholder="Range"
               value={stopLossRange}
               onChange={(e) => setStopLossRange(e.target.value)}
-              className="input input-bordered rounded-md w-full"
+              className="input text-black p-3 input-bordered rounded-md w-full"
             />
           </label>
 
@@ -239,9 +239,9 @@ function CryptoCal() {
             <input
               type="number"
               placeholder="Price"
-              value={(selectedInstrument.price * 1).toFixed(2)}
+              value={(selectedInstrument?.price * 1).toFixed(2)}
               onChange={handlePriceChange}
-              className="input input-bordered rounded-md w-full"
+              className="input text-black p-3 input-bordered rounded-md w-full"
             />
           </label>
         </div>
