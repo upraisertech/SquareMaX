@@ -5,14 +5,14 @@ import { IUser } from "@/types";
 import { getCurrentUser } from "@/lib/appwrite/api";
 import React from "react";
 
-export const INITIAL_USER = {
+export const INITIAL_USER: IUser = {
   id: '',
   name: '',
   username: '',
   email: '',
   imageUrl: '',
   bio: '',
-  followers: [],
+  followers: [], // Update to an empty array
   verified: false,
 };
 
@@ -23,24 +23,16 @@ const INITIAL_STATE = {
   setUser: () => {},
   setIsAuthenticated: () => {},
   checkAuthUser: async () => false as boolean,
-  mode: false,
-  forex: false,
-  coin: false,
-  toggleMode: false,
+  mode: "light", // Set the mode as a string here
+  forex: [],
+  coin: [],
+  toggleMode: () => {},
   loading: false,
   fetchData: () => {},
   fetchForexData: () => {},
 };
 
 type IContextType = {
-  id: string;
-  name: string;
-  username: string;
-  email: string;
-  imageUrl: string;
-  bio: string;
-  followers: any[];
-  verified: boolean;
   user: IUser;
   isLoading: boolean;
   isAuthenticated: boolean;
@@ -164,10 +156,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   //   }
   // }, []);
 
-
   const value: IContextType = {
-    user,
-    setUser,
+    user: INITIAL_USER,
+    setUser: function (): void{},
     toggleMode,
     mode,
     forex,
