@@ -104,9 +104,9 @@ const Calculator: FC<CalculatorProps> = ({selectedInstrument,setSelectedInstrume
   };
 
   return (
-    <div className="flex flex-col gap-12 md:w-full mx-3 text-start md:items-start justify-between">
+    <div className="flex flex-col gap-12 md:w-full md:ml-[3em] mx-3 text-start md:items-start justify-between">
       <div className="flex flex-col gap-3 text-start items-center justify-center">
-        <div className="flex flex-col md:flex-row gap-3 text-start items-center justify-center w-full md:w-[40em]">
+        <div className="flex flex-col md:flex-row gap-3 text-start items-center justify-center w-full">
           <div className="bg-none flex-col flex w-full">
             <div className="label">
               <span className="label-text">Instrument</span>

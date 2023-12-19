@@ -12,7 +12,7 @@ const CryptoCalResults: FC<Props> = ({
 }): ReactElement => {
   return (
     <div
-      className={`md:flex md:flex-col grid grid-cols-2 gap-3 text-start items-center justify-center`}>
+      className={`grid grid-cols-2 lg:grid-cols-3 gap-3 text-start items-center justify-center`}>
       <div className="">
         <div className="text-xs font-normal leading-[18px]">Money at risk</div>
         <input
