@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import myContext from "@/context/data/myContext";
+import React from "react";
 
 interface CryptoCalResultsProps {
   positionSize: number;
