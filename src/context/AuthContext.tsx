@@ -41,6 +41,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [mode, setMode] = useState("light");
+  const [loading, setLoading] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [coin, setCoin] = useState([]);
+  const [forex, setForex] = useState([]);
 
   const toggleMode = () => {
     if (mode === "dark") {
@@ -94,11 +98,65 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     checkAuthUser();
   }, []);
 
+
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch(`https://api.coinranking.com/v2/coins?token=coinranking9bbba664219afc1683d728ce38d82a8cc832637a8c765ad9`);
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+      setCoin(data.data.coins);
+    } catch (error) {
+      console.error("Error fetching coin data:", error);
+    } finally {
+      // setIsLoading(false);
+    }
+  };
+
+  const fetchForexData = async () => {
+    try {
+      const response = await fetch(`https://www.rebatekingfx.com/api/live-chart/datafeed/search?lang=en`);
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+      setForex(data);
+    } catch (error) {
+      console.error("Error fetching forex data:", error);
+    } finally {
+      // setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+    fetchForexData();
+  }, []);
+
+  useEffect(() => {
+    const storedUserDetails = localStorage.getItem("userInfo");
+
+    if (storedUserDetails) {
+      const userInfo = JSON.parse(storedUserDetails);
+      setCurrentUser(userInfo);
+    }
+  }, []);
+
   const value = {
     user,
     setUser,
     toggleMode,
     mode,
+    forex,
+    coin,
+    currentUser,
+    toggleMode,
+    loading,
+    setLoading,
+    fetchData,
+    fetchForexData,
     isLoading,
     isAuthenticated,
     setIsAuthenticated,

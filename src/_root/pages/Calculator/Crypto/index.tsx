@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import Results from "./Results";
-import myContext from "@/context/data/myContext";
+import {useUserContext} from "@/context/AuthContext";
 
 interface Coin {
   symbol: string;
@@ -19,8 +19,7 @@ interface Instrument {
 }
 
 function CryptoCal() {
-  const context = useContext(myContext);
-  const { fetchData, coin } = context;
+  const { fetchData, coin } = useUserContext();
   const [accountBalance, setAccountBalance] = useState<string>("");
   const [riskPercentage, setRiskPercentage] = useState<string>("");
   const [stopLossRange, setStopLossRange] = useState<number | string>("");
