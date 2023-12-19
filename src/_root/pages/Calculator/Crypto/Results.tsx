@@ -3,8 +3,8 @@ import { IListsProps } from ".";
 
 interface Props {
   forex: IListsProps[];
-  positionSize: number;
-  moneyRisk: number;
+  positionSize: any;
+  moneyRisk: any;
 }
 const CryptoCalResults: FC<Props> = ({
   positionSize,

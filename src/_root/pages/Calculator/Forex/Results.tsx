@@ -4,8 +4,8 @@ import { IListsProps } from ".";
 
 interface CryptoCalResultsProps {
   forex: IListsProps[];
-  positionSize: number;
-  moneyRisk: number;
+  positionSize: any;
+  moneyRisk: any;
 }
   const ForexCalResults: FC<CryptoCalResultsProps> = ({positionSize, moneyRisk}): ReactElement => {
 

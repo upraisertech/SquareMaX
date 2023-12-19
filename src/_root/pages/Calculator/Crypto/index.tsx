@@ -22,8 +22,8 @@ function CryptoCal() {
   const [accountBalance, setAccountBalance] = useState<string>("");
   const [riskPercentage, setRiskPercentage] = useState<string>("");
   const [stopLossRange, setStopLossRange] = useState<number | string>("");
-  const [positionSize, setPositionSize] = useState<string | null>(null);
-  const [moneyRisk, setMoneyRisk] = useState<number | null>(null);
+  const [positionSize, setPositionSize] = useState<number | string>("");
+  const [moneyRisk, setMoneyRisk] = useState<number | string>("");
   // const [selectedCurrencyPair, setSelectedCurrencyPair] = useState<string>("");
   const [selectedInstrument, setSelectedInstrument] = useState<Coin | null>(
     null
@@ -254,7 +254,7 @@ function CryptoCal() {
         </button>
       </div>
       <div>
-        <Results positionSize={positionSize} moneyRisk={moneyRisk} />
+        <Results positionSize={positionSize} moneyRisk={moneyRisk} forex={[]} />
       </div>
     </div>
   );

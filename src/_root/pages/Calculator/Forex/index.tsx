@@ -10,10 +10,17 @@ interface CalculatorProps {
   handleInstrumentSelect: React.Dispatch<any>;
 }
 
+interface Coin {
+  symbol: string;
+  full_name: string;
+  price: string;
+  iconUrl: string;
+  // Add any other properties here as needed
+}
 export interface IListsProps {
   positionSize: number;
   moneyRisk: number;
-  coin: number;
+  forexLists: number;
 }
 export interface ICountriesProps {
   forex: IListsProps[];
@@ -29,9 +36,8 @@ const Calculator: FC<CalculatorProps> = ({selectedInstrument,setSelectedInstrume
   // const [selectedInstrument, setSelectedInstrument] = useState();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const handleInstrumentSelect = () => {
+  const handleInstrumentSelect = (forexLists: Coin) => {
     setSelectedInstrument(forexLists);
-    setIsOpen(!isOpen);
   };
 
   // const handleCurrencyPairChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -96,10 +102,10 @@ const Calculator: FC<CalculatorProps> = ({selectedInstrument,setSelectedInstrume
     setSearchTerm(value);
     setFilteredHistory(
       forexLists.filter(
-        (forexItem: { symbol: string; full_name: string; description: string; }) =>
-          forexItem.symbol.toLowerCase().includes(value.toLowerCase()) ||
-          forexItem.full_name.toLowerCase().includes(value.toLowerCase()) ||
-          forexItem.description.toLowerCase().includes(value.toLowerCase())
+        (forexLists) =>
+        forexLists.symbol.toLowerCase().includes(value.toLowerCase()) ||
+        forexLists.full_name.toLowerCase().includes(value.toLowerCase()) ||
+        forexLists.description.toLowerCase().includes(value.toLowerCase())
       )
     );
   };
@@ -145,15 +151,17 @@ const Calculator: FC<CalculatorProps> = ({selectedInstrument,setSelectedInstrume
                     />
                     <hr />
                   </div>
-                  {filteredHistory.map((coin, index) => (
+                  {filteredHistory.map((fore, index) => (
                     <div
                       key={index + 1}
                       className="text-[13px] px-2 py-3 hover:bg-gray-100"
-                      onClick={() => {handleInstrumentSelect(coin)}}
-                    >
+                      onClick={() => {
+                        handleInstrumentSelect(1);
+                        setIsOpen(!isOpen);
+                      }}>
                       <div className="flex flex-row items-center justify-between hover:bg-gray-100">
                         <div className="py-1">
-                          {coin.full_name} ({coin.symbol})
+                          {fore.full_name} ({fore.symbol})
                         </div>
                       </div>
                     </div>
@@ -246,7 +254,7 @@ const Calculator: FC<CalculatorProps> = ({selectedInstrument,setSelectedInstrume
         </button>
       </div>
       <div>
-        <Results positionSize={positionSize} moneyRisk={moneyRisk} />
+        <Results positionSize={positionSize} moneyRisk={moneyRisk} forex={[]} />
       </div>
     </div>
   );
