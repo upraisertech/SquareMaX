@@ -131,6 +131,7 @@ const UpdateProfile = () => {
                   <FormLabel className="shad-form_label">Username</FormLabel>
                   <FormControl>
                     <Input
+                      disabled
                       type="text"
                       className="shad-input"
                       {...field}

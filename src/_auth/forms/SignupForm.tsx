@@ -94,7 +94,7 @@ const SignupForm = () => {
               <FormItem>
                 <FormLabel className="shad-form_label">Name</FormLabel>
                 <FormControl>
-                  <Input type="text" className="shad-input" {...field} />
+                  <Input type="text" className="shad-input" {...field} required/>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -108,7 +108,7 @@ const SignupForm = () => {
               <FormItem>
                 <FormLabel className="shad-form_label">Username</FormLabel>
                 <FormControl>
-                  <Input type="text" className="shad-input" {...field} />
+                  <Input type="text" className="shad-input" {...field} required />
                 </FormControl>
                 <FormMessage />
               </FormItem>
