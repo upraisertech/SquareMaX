@@ -5,6 +5,7 @@ export type INavLink = {
 };
 
 export type IUpdateUser = {
+  username: any;
   userId: string;
   name: string;
   bio: string;
