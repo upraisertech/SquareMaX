@@ -49,8 +49,8 @@ const Profile = () => {
   return (
     <div className="profile-container">
       <div className="profile-inner_container">
-        <div className="flex flex-col flex-1 gap-7">
-          <div className="flex items-center justify-between">
+        <div className="flex flex-col flex-1 gap-7 w-full">
+          <div className="flex items-center justify-between w-full">
             <img
               src={
                 currentUser.imageUrl || "/assets/icons/profile-placeholder.svg"
@@ -65,7 +65,7 @@ const Profile = () => {
             </div>
           </div>
 
-          <div className="flex flex-col flex-1 justify-between">
+          <div className="flex flex-col flex-1 justify-between w-full">
             <div className="flex flex-col w-full">
               <h1 className="flex text-left h3-bold md:h2-semibold items-center justify-start  w-full">
                 {currentUser.name}
