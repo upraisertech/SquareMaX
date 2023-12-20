@@ -169,11 +169,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setIsAuthenticated,
     checkAuthUser,
   };
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 export const useUserContext = (): IContextType => useContext(AuthContext);
