@@ -6,7 +6,6 @@ import { Loader } from "@/components/shared";
 import { Button } from "@/components/ui/button";
 import { useSignOutAccount } from "@/lib/react-query/queries";
 import { useUserContext, INITIAL_USER } from "@/context/AuthContext";
-import Verified from "../ui/verified";
 
 const LeftSidebar = () => {
   const navigate = useNavigate();
@@ -29,11 +28,7 @@ const LeftSidebar = () => {
     <nav className="leftsidebar">
       <div className="flex flex-col gap-6">
         <Link to="/" className="flex gap-3 mb-3 items-center">
-          <img
-            src="/assets/icons/logo.png"
-            alt="logo"
-            className=""
-          />
+          <img src="/assets/icons/logo.png" alt="logo" className="" />
           <h1 className="text-[20px] font-bold">SquaremaX</h1>
         </Link>
 
@@ -51,7 +46,14 @@ const LeftSidebar = () => {
             <div className="flex flex-col">
               <p className="flex items-center base-medium lg:body-bold text-light-1">
                 {user.name}
-                <Verified user={user}/>
+                {user?.verified === true && (
+                  <>
+                    <img
+                      className="w-3 h-3 ml-1"
+                      src="/assets/images/M/checklist.png"
+                    />
+                  </>
+                )}
               </p>
               <p className="small-regular text-light-3">@{user.username}</p>
             </div>
