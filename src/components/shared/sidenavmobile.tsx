@@ -71,7 +71,7 @@ const SideNavMobile: FC<Props> = ({ setSideNav }): ReactElement => {
           </Link>
         )}
 
-        <ul onClick={() => setSideNav(false)} className="flex flex-col gap-2">
+        <ul onClick={() => setSideNav(false)} className="flex flex-col mt-5 gap-2">
           {navdata.map((link: INavLink) => {
             const isActive = pathname === link.route;
 
