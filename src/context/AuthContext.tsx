@@ -3,7 +3,6 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 import { IUser } from "@/types";
 import { getCurrentUser } from "@/lib/appwrite/api";
-import React from "react";
 
 export const INITIAL_USER: IUser = {
   id: '',
@@ -23,16 +22,16 @@ const INITIAL_STATE = {
   setUser: () => {},
   setIsAuthenticated: () => {},
   checkAuthUser: async () => false as boolean,
-  mode: "light", // Set the mode as a string here
+  mode: "",
   forex: [],
-  coin: [],
+  coin: false,
   toggleMode: () => {},
   loading: false,
   fetchData: () => {},
   fetchForexData: () => {},
 };
 
-type IContextType = {
+interface IContextType {
   user: IUser;
   isLoading: boolean;
   isAuthenticated: boolean;
@@ -41,17 +40,17 @@ type IContextType = {
   checkAuthUser: () => Promise<boolean>;
   mode: string;
   forex: any[];
-  coin: any[];
+  coin: any; // Update type to boolean
   toggleMode: () => void;
   fetchData: () => void;
   fetchForexData: () => void;
-};
+}
 
 const AuthContext = createContext<IContextType>(INITIAL_STATE);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const navigate = useNavigate();
-  const [user, setUser] = useState<IUser | null>(null);
+  const [user, setUser] = useState(INITIAL_USER);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [mode, setMode] = useState("light");
@@ -157,8 +156,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   // }, []);
 
   const value: IContextType = {
-    user: INITIAL_USER,
-    setUser: function (): void{},
+    user,
+    setUser,
     toggleMode,
     mode,
     forex,
@@ -170,8 +169,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setIsAuthenticated,
     checkAuthUser,
   };
-
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={value}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
 export const useUserContext = (): IContextType => useContext(AuthContext);
