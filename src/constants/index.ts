@@ -22,7 +22,7 @@ export const sidebarLinks = [
   {
     imgURL: "/assets/icons/bookmark.svg",
     route: "/saved",
-    label: "Saved",
+    label: "Bookmarks",
   },
   {
     imgURL: "/assets/icons/gallery-add.svg",
