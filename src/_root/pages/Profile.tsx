@@ -69,7 +69,7 @@ const Profile = () => {
             <div className="flex flex-col w-full">
               <h1 className="flex text-left h3-bold md:h2-semibold items-center justify-start  w-full">
                 {currentUser.name}
-                <Verified user={currentUser}/>
+                <Verified user={currentUser} />
               </h1>
               <p className="small-regular md:body-medium text-primary_A1 text-left">
                 @{currentUser.username}
