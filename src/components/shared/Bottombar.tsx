@@ -9,7 +9,7 @@ const Bottombar = () => {
 
   const handleScroll = useCallback(() => {
     const scrollTop = window.scrollY;
-    if (scrollTop > 10) {
+    if (scrollTop > 5) {
       setIsScrolled(true);
     } else {
       setIsScrolled(false);
