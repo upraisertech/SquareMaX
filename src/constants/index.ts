@@ -10,6 +10,11 @@ export const sidebarLinks = [
     label: "Calculator",
   },
   {
+    imgURL: "/assets/icons/market.png",
+    route: "/market",
+    label: "Market",
+  },
+  {
     imgURL: "/assets/icons/wallpaper.svg",
     route: "/explore",
     label: "Explore",
@@ -43,8 +48,8 @@ export const bottombarLinks = [
     label: "Calculator",
   },
   {
-    imgURL: "/assets/icons/gallery-add.svg",
-    route: "/create-post",
+    imgURL: "/assets/icons/market.png",
+    route: "/market",
     label: "Market",
   },
   {

@@ -3,6 +3,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import {
   Home,
   Calculator,
+  Market,
   Explore,
   Saved,
   CreatePost,
@@ -42,6 +43,7 @@ const App = () => {
         <Route element={<RootLayout />}>
           <Route index element={<Home />} />
           <Route path="/calculator" element={<Calculator />} />
+          <Route path="/market" element={<Market />} />
           <Route path="/explore" element={<Explore />} />
           <Route path="/saved" element={<Saved />} />
           <Route path="/all-users" element={<AllUsers />} />

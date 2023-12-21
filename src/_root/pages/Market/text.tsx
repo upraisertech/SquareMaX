@@ -1,25 +1,34 @@
-import React, { useContext, useEffect, useState } from "react";
-import myContext from "context/data/myContext";
-import { useLocation } from "react-router-dom";
+import { useState } from "react";
+import {useUserContext} from "@/context/AuthContext";
+// import { useLocation } from "react-router-dom";
+
+interface Coin {
+  marketCap: number;
+  symbol: string;
+  name: string;
+  price: number;
+  iconUrl: string;
+  // Add any other properties here as needed
+}
 
 const BasicTablePage = () => {
-  const context = useContext(myContext);
-  const { fetchData, mode, coin } = context;
-  const [searchTerm, setSearchTerm] = useState("");
-  const [filteredHistory, setFilteredHistory] = useState(coin);
+  const { fetchData, coin } = useUserContext();
 
-  const numberWithCommas = (x) => {
+  const numberWithCommas = (x: string) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
   
-  const handleSearch = (value) => {
+
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [filteredHistory, setFilteredHistory] = useState<Coin[]>(coin);
+
+  const handleSearch = (value: string) => {
     setSearchTerm(value);
     setFilteredHistory(
       coin.filter(
-        (coin) =>
-          coin.name.toLowerCase().includes(value.toLowerCase()) ||
+        (coin: Coin) =>
           coin.symbol.toLowerCase().includes(value.toLowerCase()) ||
-          coin.marketCap.toLowerCase().includes(value.toLowerCase())
+          coin.name.toLowerCase().includes(value.toLowerCase())
       )
     );
   };
@@ -31,7 +40,6 @@ const BasicTablePage = () => {
     >
       <div
         className="text-primary-A2 text-[20px] text-center font-bold w-auto"
-        variant="body5"
       >
         Cryptocurrency prices and signals
       </div>
@@ -59,14 +67,12 @@ const BasicTablePage = () => {
             </thead>
             <tbody
               className="divide-y divide-slate-100 dark:divide-slate-700"
-              style={{ color: mode === "dark" ? "white" : "" }}
             >
               {filteredHistory.length !== 0 ? (
                 filteredHistory.map((row, i) => {
                   return (
                     <tr
                       key={i}
-                      style={{ color: mode === "dark" ? "white" : "" }}
                       className="hover:bg-primary-A1 hover:text-white"
                     >
                       <td className="table-td pl-3">{i + 1}</td>
@@ -93,7 +99,7 @@ const BasicTablePage = () => {
               ) : (
                 <td
                   className="text-primary-A2 text-center text-[20px] pt-[7em] font-normal tracking-tight"
-                  colSpan="4"
+                  colSpan={4}
                 >
                   Not found
                 </td>

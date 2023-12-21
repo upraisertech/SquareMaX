@@ -9,3 +9,4 @@ export { default as PostDetails } from "./PostDetails";
 export { default as LikedPosts } from "./LikedPosts";
 export { default as AllUsers } from "./AllUsers";
 export { default as Calculator } from "./Calculator/Calculator";
+export { default as Market } from "./Market/index";
