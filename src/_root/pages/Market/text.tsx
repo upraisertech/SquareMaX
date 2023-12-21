@@ -1,5 +1,5 @@
-import { useState } from "react";
-import {useUserContext} from "@/context/AuthContext";
+import { useEffect, useState } from "react";
+import { useUserContext } from "@/context/AuthContext";
 // import { useLocation } from "react-router-dom";
 
 interface Coin {
@@ -17,7 +17,10 @@ const BasicTablePage = () => {
   const numberWithCommas = (x: string) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
-  
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [filteredHistory, setFilteredHistory] = useState<Coin[]>(coin);
@@ -36,11 +39,8 @@ const BasicTablePage = () => {
   return (
     <div
       className="w-full h-screen pb-[4em] overflow-x-auto"
-      title="Hover Table"
-    >
-      <div
-        className="text-primary-A2 text-[20px] text-center font-bold w-auto"
-      >
+      title="Hover Table">
+      <div className="text-primary-A2 text-[20px] text-center font-bold w-auto">
         Cryptocurrency prices and signals
       </div>
       <div className="flex flex-row p-3 gap-10 items-center justify-between w-full">
@@ -53,10 +53,10 @@ const BasicTablePage = () => {
           placeholder="Enter a name, email or phone number"
         />
       </div>
-      <div className="inline-block min-w-full align-middle">
-        <div className="overflow-auto">
+      <div className="inline-block w-full align-middle md:mx-[3rem]">
+        <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-slate-100 table-fixed dark:divide-slate-700">
-            <thead className="bg-primary-A1 text-white -mt-12 mb-7">
+            <thead className="bg-primary-A1 text-white text-left -mt-12 mb-7">
               <tr>
                 {columns.map((column, i) => (
                   <th key={i} scope="col" className="py-3 pl-3 table-th">
@@ -65,16 +65,13 @@ const BasicTablePage = () => {
                 ))}
               </tr>
             </thead>
-            <tbody
-              className="divide-y divide-slate-100 dark:divide-slate-700"
-            >
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-700 text-left">
               {filteredHistory.length !== 0 ? (
                 filteredHistory.map((row, i) => {
                   return (
                     <tr
                       key={i}
-                      className="hover:bg-primary-A1 hover:text-white"
-                    >
+                      className="hover:bg-primary-A1 hover:text-white">
                       <td className="table-td pl-3">{i + 1}</td>
                       <td className="flex table-td py-3 gap-2 justify-start items-center">
                         <img
@@ -99,8 +96,7 @@ const BasicTablePage = () => {
               ) : (
                 <td
                   className="text-primary-A2 text-center text-[20px] pt-[7em] font-normal tracking-tight"
-                  colSpan={4}
-                >
+                  colSpan={4}>
                   Not found
                 </td>
               )}

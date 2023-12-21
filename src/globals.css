@@ -278,3 +278,24 @@
     @apply flex gap-4 items-center justify-start hover:bg-transparent hover:text-white !important;
   }
 }
+
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  /* display: none; */
+  border-radius: 1rem;
+  /* background: rgba(220, 146, 73, 1); */
+  transition: all 0.5s ease-in-out;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(220, 146, 73, 1);
+}
+
+::-webkit-scrollbar-track {
+  background: #ffffff84;
+} /**/
