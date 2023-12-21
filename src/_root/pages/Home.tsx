@@ -25,7 +25,7 @@ const Home = () => {
       const sorted = postsData.documents
         .slice()
         .sort((a: Models.Document, b: Models.Document) => {
-          // Change 'createdAt' to your post creation date property
+          // Change '$createdAt' to your post creation date property
           const dateA = new Date(a.createdAt).getTime();
           const dateB = new Date(b.createdAt).getTime();
           return dateB - dateA; // Sort in descending order, modify if needed
