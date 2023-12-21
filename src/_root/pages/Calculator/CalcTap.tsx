@@ -5,6 +5,8 @@ import Percentage from "./Percentage/index";
 
 const SettingsHeader = () => {
   const [activeTab, setActiveTab] = useState(1);
+  const [sideNav, setSideNav] = useState(false);
+  const [more, setMore] = useState(false);
 
   const handleTabClick = (tabNumber: React.SetStateAction<number>) => {
     setActiveTab(tabNumber);
@@ -14,7 +16,7 @@ const SettingsHeader = () => {
     <div className="">
       <div className="flex border-b gap-5 my-4 mx-auto items-start justify-between">
         <button
-          className={`py-2 text-[17px] h-[40px] focus:outline-none w-full
+          className={`py-2 text-[17px] h-[40px] focus:outline-none w-[60%]
           ${
             activeTab === 1
               ? "border-primary-A1 border-t-none border-b-[4px] "
@@ -26,11 +28,12 @@ const SettingsHeader = () => {
           </div>
         </button>
 
-        <div className="dropdown dropdown-end dropdown-bottom w-full">
+        <div className="mx-auto items-center justify-center w-[60%]">
           <div
+            onClick={() => setSideNav(!sideNav)}
             tabIndex={0}
             role="button"
-            className={`py-2 text-[17px] h-[40px] focus:outline-none
+            className={`py-2 text-[17px] h-[40px] focus:outline-none text-center justify-center
             ${
               activeTab === 2 || activeTab === 3
                 ? "border-primary-A1 border-t-none border-b-[4px]"
@@ -38,60 +41,67 @@ const SettingsHeader = () => {
             }`}>
             PositionSize
           </div>
-          <ul className="shadow menu dropdown-content z-[1] gap-3 bg-white rounded-box w-32">
-            <button
-              className={`py-2 text-[17px] h-[40px] focus:outline-none ${
-                activeTab === 2 ? "text-primary-A2" : "text-black"
-              }`}
-              onClick={() => handleTabClick(2)}>
-              <div className="flex flex-col gap-0.5 items-center justify-center px-3">
-                <div className="text-[17px] w-auto">Forex</div>
-              </div>
-            </button>
+          {sideNav && (
+            <ul className="z-[1] gap-3 bg-white md:ml-[5em] absolute rounded-md w-32">
+              <button
+                className={`py-2 text-[17px] h-[40px] focus:outline-none ${
+                  activeTab === 2 ? "text-primary-A2" : "text-black"
+                }`}
+                onClick={() => {handleTabClick(2); setSideNav(!sideNav)}}>
+                <div className="flex flex-col gap-0.5 items-center justify-center px-3">
+                  <div className="text-[17px] w-auto">Forex</div>
+                </div>
+              </button>
 
-            <button
-              className={`py-2 text-[17px] h-[40px] focus:outline-none ${
-                activeTab === 3 ? "text-primary-A2" : "text-black"
-              }`}
-              onClick={() => handleTabClick(3)}>
-              <div className="flex flex-col gap-0.5 items-center justify-center px-3">
-                <div className="text-[17px] w-auto">Crypto</div>
-              </div>
-            </button>
-          </ul>
+              <button
+                className={`py-2 text-[17px] h-[40px] focus:outline-none ${
+                  activeTab === 3 ? "text-primary-A2" : "text-black"
+                }`}
+                onClick={() => {handleTabClick(3); setSideNav(!sideNav)}}>
+                <div className="flex flex-col gap-0.5 items-center justify-center px-3">
+                  <div className="text-[17px] w-auto">Crypto</div>
+                </div>
+              </button>
+            </ul>
+          )}
         </div>
 
-        <div className="dropdown dropdown-end dropdown-bottom pr-5">
+        <div className="dropdown dropdown-end dropdown-bottom pr-5 w-[60%]">
           <div
+           onClick={() => setMore(!more)}
             tabIndex={0}
             role="button"
-            className={`py-2 text-[17px] h-[40px] focus:outline-none
+            className={`py-2 text-[17px] h-[40px] focus:outline-none text-center
     ${
-      activeTab === 2 || activeTab === 3 ? "border-t-none border-b-[4px]" : ""
+      activeTab === 4 || activeTab === 5
+        ? "border-primary-A1 border-t-none border-b-[4px]"
+        : ""
     }`}>
             More...
           </div>
-          <ul className="shadow menu dropdown-content z-[1] gap-3 bg-white rounded-box w-32">
-            <button
-              className={`py-2 text-[17px] h-[40px] focus:outline-none ${
-                activeTab === 2 ? "text-primary-A2" : "text-black"
-              }`}
-              onClick={() => handleTabClick(2)}>
-              <div className="flex flex-col gap-0.5 items-center justify-center px-3">
-                <div className="text-[17px] w-auto">Item 1</div>
-              </div>
-            </button>
+          {more && (
+            <ul className="shadow-3 absolute md:ml-[5em] gap-3 bg-white rounded-md w-32">
+              <button
+                className={`py-2 text-[17px] h-[40px] focus:outline-none ${
+                  activeTab === 4 ? "text-primary-A2" : "text-black"
+                }`}
+                onClick={() => {handleTabClick(4); setMore(!more)}}>
+                <div className="flex flex-col gap-0.5 items-center justify-center px-3">
+                  <div className="text-[17px] w-auto">Item 1</div>
+                </div>
+              </button>
 
-            <button
-              className={`py-2 text-[17px] h-[40px] focus:outline-none ${
-                activeTab === 3 ? "text-primary-A2" : "text-black"
-              }`}
-              onClick={() => handleTabClick(3)}>
-              <div className="flex flex-col gap-0.5 items-center justify-center px-3">
-                <div className="text-[17px] w-auto">Item 2</div>
-              </div>
-            </button>
-          </ul>
+              <button
+                className={`py-2 text-[17px] h-[40px] focus:outline-none ${
+                  activeTab === 5 ? "text-primary-A2" : "text-black"
+                }`}
+                onClick={() => {handleTabClick(5); setMore(!more)}}>
+                <div className="flex flex-col gap-0.5 items-center justify-center px-3">
+                  <div className="text-[17px] w-auto">Item 2</div>
+                </div>
+              </button>
+            </ul>
+          )}
         </div>
       </div>
 
@@ -103,14 +113,29 @@ const SettingsHeader = () => {
       )}
       {activeTab === 2 && (
         <div>
-          <Forex forex={[]} selectedInstrument={undefined} setSelectedInstrument={function (): void {
-            throw new Error("Function not implemented.");
-          } } handleInstrumentSelect={function (): void {
-            throw new Error("Function not implemented.");
-          } } />
+          <Forex
+            forex={[]}
+            selectedInstrument={undefined}
+            setSelectedInstrument={function (): void {
+              throw new Error("Function not implemented.");
+            }}
+            handleInstrumentSelect={function (): void {
+              throw new Error("Function not implemented.");
+            }}
+          />
         </div>
       )}
       {activeTab === 3 && (
+        <div>
+          <Crypto />
+        </div>
+      )}
+      {activeTab === 4 && (
+        <div>
+          <Crypto />
+        </div>
+      )}
+      {activeTab === 5 && (
         <div>
           <Crypto />
         </div>
