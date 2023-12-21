@@ -49,7 +49,7 @@ const PercentageCalculator: React.FC<Props> = () => {
             placeholder="Enter value"
             value={value}
             onChange={handleValueChange}
-            className="input p-3 input-bordered rounded-md text-black w-full"
+            className="input p-3 input-bordered rounded-md bg-[white] text-black w-full"
           />
         </label>
 
@@ -62,7 +62,7 @@ const PercentageCalculator: React.FC<Props> = () => {
             placeholder="Enter percentage"
             value={percentage}
             onChange={handlePercentageChange}
-            className="input p-3 input-bordered rounded-md text-black w-full"
+            className="input p-3 input-bordered rounded-md bg-[white] text-black w-full"
           />
         </label>
       </div>
