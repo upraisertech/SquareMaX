@@ -48,7 +48,7 @@ const LeftSidebar = () => {
                 {user.name}
                 {user?.verified === true && (
                   <>
-                    <img
+                    <img title="verified user"
                       className="w-3 h-3 ml-1"
                       src="/assets/images/M/checklist.png"
                     />

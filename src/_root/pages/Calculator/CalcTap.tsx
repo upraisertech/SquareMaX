@@ -14,7 +14,7 @@ const SettingsHeader = () => {
 
   return (
     <div className="">
-      <div className="flex border-b gap-5 my-4 mx-auto items-start justify-between">
+      <div className="flex border-b gap-5 mb-12 my-4 mx-auto items-start justify-between">
         <button
           className={`py-2 text-[17px] h-[40px] focus:outline-none w-[60%]
           ${
@@ -113,16 +113,7 @@ const SettingsHeader = () => {
       )}
       {activeTab === 2 && (
         <div>
-          <Forex
-            forex={[]}
-            selectedInstrument={undefined}
-            setSelectedInstrument={function (): void {
-              throw new Error("Function not implemented.");
-            }}
-            handleInstrumentSelect={function (): void {
-              throw new Error("Function not implemented.");
-            }}
-          />
+          <Forex positionSize={0} moneyRisk={0} forexLists={0}  />
         </div>
       )}
       {activeTab === 3 && (

@@ -25,9 +25,7 @@ function CryptoCal() {
   const [positionSize, setPositionSize] = useState<number | string>("");
   const [moneyRisk, setMoneyRisk] = useState<number | string>("");
   // const [selectedCurrencyPair, setSelectedCurrencyPair] = useState<string>("");
-  const [selectedInstrument, setSelectedInstrument] = useState<Coin | null>(
-    null
-  );
+  const [selectedInstrument, setSelectedInstrument] = useState<Coin | null>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [price, setPrice] = useState<string>("");
 
@@ -198,7 +196,7 @@ function CryptoCal() {
               placeholder="$$$$"
               value={accountBalance}
               onChange={(e) => setAccountBalance(e.target.value)}
-              className="input text-black p-3 input-bordered rounded-md w-full"
+              className="input text-black p-3 input-bordered bg-[white] rounded-md w-full"
             />
           </label>
 
@@ -211,7 +209,7 @@ function CryptoCal() {
               placeholder="%"
               value={riskPercentage + "%"}
               onChange={handleRiskPercentageChange}
-              className="input text-black p-3 input-bordered rounded-md w-full"
+              className="input text-black p-3 input-bordered bg-[white] rounded-md w-full"
             />
           </label>
         </div>
@@ -226,7 +224,7 @@ function CryptoCal() {
               placeholder="Range"
               value={stopLossRange}
               onChange={(e) => setStopLossRange(e.target.value)}
-              className="input text-black p-3 input-bordered rounded-md w-full"
+              className="input text-black p-3 input-bordered bg-[white] rounded-md w-full"
             />
           </label>
 
@@ -242,7 +240,7 @@ function CryptoCal() {
               placeholder={price}
               value={selectedInstrument ? (selectedInstrument.price) : ""}
               onChange={handlePriceChange}
-              className="input text-black p-3 input-bordered rounded-md w-full"
+              className="input text-black p-3 input-bordered bg-[white] rounded-md w-full"
             />
           </label>
         </div>

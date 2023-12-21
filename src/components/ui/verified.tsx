@@ -11,7 +11,7 @@ type UserCardProps = {
     <>
       {user?.verified === true && (
         <>
-          <img className="w-3 h-3 ml-1" src="/assets/images/M/checklist.png" />
+          <img title="verified user" className="w-3 h-3 ml-1" src="/assets/images/M/checklist.png" />
         </>
       )}
     </>

@@ -1,32 +1,26 @@
 import React, { FC, ReactElement, useEffect, useState } from "react";
 import Results from "./Results";
 // import {useUserContext} from "@/context/AuthContext";
-import { ICountryListsProps, forexLists } from "../Data/Forex";
+import { forexLists } from "../Data/Forex";
 
-interface CalculatorProps {
-  forex: ICountryListsProps[];
-  selectedInstrument: ICountryListsProps | undefined;
-  setSelectedInstrument: React.Dispatch<any>;
-  handleInstrumentSelect: React.Dispatch<any>;
+interface Coin {
+  symbol: string;
+  full_name: string;
+  description: string;
 }
-
 export interface IListsProps {
   positionSize: number;
   moneyRisk: number;
   forexLists: number;
 }
-export interface ICountriesProps {
-  forex: IListsProps[];
-}
 
-const Calculator: FC<CalculatorProps> = ({selectedInstrument,setSelectedInstrument}): ReactElement => {
+const Calculator: FC<IListsProps> = (): ReactElement => {
   const [accountBalance, setAccountBalance] = useState<string>("");
   const [riskPercentage, setRiskPercentage] = useState<string>("");
   const [stopLossPips, setStopLossPips] = useState<string>("");
   const [positionSize, setPositionSize] = useState<string | null>(null);
   const [moneyRisk, setMoneyRisk] = useState<number | null>(null);
-  // const [selectedCurrencyPair, setSelectedCurrencyPair] = useState<string>("");
-  // const [selectedInstrument, setSelectedInstrument] = useState();
+  const [selectedInstrument, setSelectedInstrument] = useState<Coin>();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const handleInstrumentSelect = (forexLists: any) => {
@@ -86,18 +80,15 @@ const Calculator: FC<CalculatorProps> = ({selectedInstrument,setSelectedInstrume
 
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [filteredHistory, setFilteredHistory] = useState(forexLists);
-  
-  useEffect(() => {
-    setFilteredHistory(forexLists);
-  }, []);
-
+  // console.log(forexLists)
+ 
   const handleSearch = (value: string) => {
     setSearchTerm(value);
     setFilteredHistory(
       forexLists.filter(
         (forexLists) =>
         forexLists.symbol.toLowerCase().includes(value.toLowerCase()) ||
-        forexLists.full_name.toLowerCase().includes(value.toLowerCase()) ||
+        forexLists.full_name.toLowerCase().includes(value.toLowerCase())||
         forexLists.description.toLowerCase().includes(value.toLowerCase())
       )
     );
@@ -111,11 +102,9 @@ const Calculator: FC<CalculatorProps> = ({selectedInstrument,setSelectedInstrume
             <div className="label">
               <span className="label-text">Instrument</span>
             </div>
-            <div className="py-3 px-3 w-full text-start rounded-md border-1 bg-white text-black items-start justify-center focus-within:ring-1 ring-primary-A1">
-              <div
-                onClick={() => {
-                  setIsOpen(!isOpen);
-                }}
+            <div className="py-3 px-3 w-full text-start cursor-pointer rounded-md border-1 bg-white text-black items-start justify-center focus-within:ring-1 ring-primary-A1">
+              <div title={selectedInstrument?.full_name}
+                onClick={() => { setIsOpen(!isOpen); }}
                 className="flex flex-col gap-2.5 items-start justify-start w-full"
               >
                 <div
@@ -124,7 +113,7 @@ const Calculator: FC<CalculatorProps> = ({selectedInstrument,setSelectedInstrume
                   <div className="font-normal leading-[18px]">
                     {selectedInstrument ? (
                       <>
-                        {selectedInstrument?.full_name} ({selectedInstrument?.symbol})
+                         ({selectedInstrument.symbol})
                       </>
                     ) : (
                       "Select Pair"
@@ -144,20 +133,20 @@ const Calculator: FC<CalculatorProps> = ({selectedInstrument,setSelectedInstrume
                     />
                     <hr />
                   </div>
-                  {filteredHistory.map((fore, index) => (
-                    <div
+                  {filteredHistory.map((forex, index) => (
+                    <button
                       key={index + 1}
                       className="text-[13px] px-2 py-3 hover:bg-gray-100"
                       onClick={() => {
-                        handleInstrumentSelect(fore);
+                        handleInstrumentSelect(forex);
                         setIsOpen(!isOpen);
                       }}>
                       <div className="flex flex-row items-center justify-between hover:bg-gray-100">
                         <div className="py-1">
-                          {fore.full_name} ({fore.symbol})
+                          {forex.full_name} ({forex.symbol})
                         </div>
                       </div>
-                    </div>
+                    </button>
                   ))}
                 </div>
               )}
@@ -191,7 +180,7 @@ const Calculator: FC<CalculatorProps> = ({selectedInstrument,setSelectedInstrume
               placeholder="$$$$"
               value={accountBalance}
               onChange={(e) => setAccountBalance(e.target.value)}
-              className="input text-black p-3 input-bordered rounded-md w-full"
+              className="input text-black p-3 input-bordered bg-[white] rounded-md w-full"
             />
           </label>
 
@@ -204,7 +193,7 @@ const Calculator: FC<CalculatorProps> = ({selectedInstrument,setSelectedInstrume
               placeholder="%"
               value={riskPercentage + "%"}
               onChange={handleRiskPercentageChange}
-              className="input text-black p-3 input-bordered rounded-md w-full"
+              className="input text-black p-3 input-bordered bg-[white] rounded-md w-full"
             />
           </label>
         </div>
@@ -219,7 +208,7 @@ const Calculator: FC<CalculatorProps> = ({selectedInstrument,setSelectedInstrume
               placeholder="pips"
               value={stopLossPips}
               onChange={(e) => setStopLossPips(e.target.value)}
-              className="input text-black p-3 input-bordered rounded-md w-full"
+              className="input text-black p-3 input-bordered bg-[white] rounded-md w-full"
             />
           </label>
 
