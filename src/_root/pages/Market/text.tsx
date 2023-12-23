@@ -50,7 +50,7 @@ const BasicTablePage = () => {
           value={searchTerm}
           className="text-black text-[15px] border border-grey_80 p-2 rounded-md font-normal w-[20em] focus-within:ring-2 ring-primary-A1"
           type="text"
-          placeholder="Enter a name, email or phone number"
+          placeholder="Search for a coin..."
         />
       </div>
       <div className="inline-block w-full align-middle md:mx-[3rem]">
