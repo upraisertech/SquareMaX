@@ -108,4 +108,3 @@ const Test: FC<Props> = ({ profileImage, setOpen, open }): ReactElement => {
 };
 
 export default Test;
-
