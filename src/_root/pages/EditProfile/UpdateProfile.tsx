@@ -1,4 +1,5 @@
 import * as z from "zod";
+import { FC, ReactElement, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate, useParams } from "react-router-dom";
@@ -19,9 +20,14 @@ import { ProfileValidation } from "@/lib/validation";
 import { useUserContext } from "@/context/AuthContext";
 import { useGetUserById, useUpdateUser } from "@/lib/react-query/queries";
 
-const UpdateProfile = () => {
+export interface IListsProps {
+  profile_image: string;
+}
+
+const UpdateProfile: FC<IListsProps> = (): ReactElement => {
   const { toast } = useToast();
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
   const { id } = useParams();
   const { user, setUser } = useUserContext();
   const form = useForm<z.infer<typeof ProfileValidation>>({
@@ -102,6 +108,7 @@ const UpdateProfile = () => {
                     <ProfileUploader
                       fieldChange={field.onChange}
                       mediaUrl={currentUser.imageUrl}
+                      profileImage={currentUser.imageUrl}
                     />
                   </FormControl>
                   <FormMessage className="shad-form_message" />
