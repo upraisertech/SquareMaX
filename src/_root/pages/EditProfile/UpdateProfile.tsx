@@ -27,7 +27,7 @@ export interface IListsProps {
 const UpdateProfile: FC<IListsProps> = (): ReactElement => {
   const { toast } = useToast();
   const navigate = useNavigate();
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
   const { id } = useParams();
   const { user, setUser } = useUserContext();
   const form = useForm<z.infer<typeof ProfileValidation>>({
