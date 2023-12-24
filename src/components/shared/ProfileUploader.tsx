@@ -17,8 +17,9 @@ const ProfileUploader = ({
 }: ProfileUploaderProps) => {
   const [file, setFile] = useState<File[]>([]);
   const [fileUrl, setFileUrl] = useState<string>(mediaUrl);
+  // const [editedImageUrl, setEditedImageUrl] = useState<any>("");
   const [open, setOpen] = useState(false);
-
+// console.log(fileUrl)
   const onDrop = useCallback(
     (acceptedFiles: FileWithPath[]) => {
       setFile(acceptedFiles);
@@ -33,7 +34,11 @@ const ProfileUploader = ({
     accept: {
       "image/*": [".png", ".jpeg", ".jpg"],
     },
-  });
+  });  
+  // useEffect(() => {
+  //   const storedUserimageUrl = localStorage.getItem('imageUrl');
+  //     setEditedImageUrl(storedUserimageUrl);
+  // }, []);
 
   return (
     <>
@@ -54,7 +59,7 @@ const ProfileUploader = ({
         </div>
       </div>
       {open && (
-        <form
+        <div
           className={`fixed left-0 right-0 bottom-12 z-50 bg-[white] c-black overflow-y-auto py-8 px-7 gap-3 bottom-0 rounded-t-[50px] 
             md:rounded-md w-[100%] md:w-[600px] m-auto text-center items-center justify-center`}>
           <div className="font-bold text-orange-A200 ml-5 text-[20px] text-left items-center justify-center">
@@ -68,7 +73,7 @@ const ProfileUploader = ({
               open={open}
             />
           )}
-        </form>
+        </div>
       )}
     </>
   );

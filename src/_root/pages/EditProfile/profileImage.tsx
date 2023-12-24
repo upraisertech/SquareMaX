@@ -30,9 +30,10 @@ const Test: FC<Props> = ({ profileImage, setOpen, open }): ReactElement => {
           formData.append("profile_image", blob, "edited_image.png");
           const url = URL.createObjectURL(blob);
           // setEditedImageUrl(url);
+          localStorage.setItem('imageUrl', JSON.stringify(url));
           console.log("Edited Image URL:", url);
           setLoading(false);
-          setOpen(!open)
+          setOpen(!open);
         } else {
           setError("Error processing image");
           setLoading(false);
@@ -91,9 +92,7 @@ const Test: FC<Props> = ({ profileImage, setOpen, open }): ReactElement => {
         </button>
 
         {loading ? (
-          <div className="h-12 text-black w-[90%]">
-            Loading...
-          </div>
+          <div className="h-12 text-black w-[90%]">Loading...</div>
         ) : (
           <button
             onClick={handleImageUpload}

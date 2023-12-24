@@ -107,9 +107,7 @@ const UpdateProfile: FC<IListsProps> = (): ReactElement => {
                   <FormControl>
                     <ProfileUploader
                       fieldChange={field.onChange}
-                      mediaUrl={currentUser.imageUrl}
-                      profileImage={currentUser.imageUrl}
-                    />
+                      mediaUrl={currentUser.imageUrl} profileImage={""}                    />
                   </FormControl>
                   <FormMessage className="shad-form_message" />
                 </FormItem>
