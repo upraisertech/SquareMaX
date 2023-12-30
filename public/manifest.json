@@ -1,6 +1,8 @@
 {
   "short_name": "SquareMaX",
   "name": "SquareMaX",
+  "version": "1.0.0",
+  "author": "Akorede Salaudeen",
   "icons": [
     {
       "src": "assets/abstract_b.png",
