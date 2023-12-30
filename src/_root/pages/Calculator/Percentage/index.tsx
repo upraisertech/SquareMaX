@@ -45,7 +45,7 @@ const PercentageCalculator: React.FC<Props> = () => {
             <span className="label-text">Enter value</span>
           </div>
           <input
-            type="text"
+            type="number"
             placeholder="Enter value"
             value={value}
             onChange={handleValueChange}
@@ -58,7 +58,7 @@ const PercentageCalculator: React.FC<Props> = () => {
             <span className="label-text">Percentage (%)</span>
           </div>
           <input
-            type="text"
+            type="number"
             placeholder="Enter percentage"
             value={percentage}
             onChange={handlePercentageChange}
