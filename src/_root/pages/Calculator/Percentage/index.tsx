@@ -19,19 +19,19 @@ const PercentageCalculator: React.FC<Props> = () => {
 
     if (!isNaN(val) && !isNaN(percent)) {
       const calculatedResult = (val * percent) / 100;
-      setResult(numberWithCommas(calculatedResult.toFixed(2))); // Format result with commas and keep 2 decimal places
+      setResult(numberWithCommas(calculatedResult.toFixed(3))); // Format result with commas and keep 2 decimal places
     } else {
       setResult("0");
     }
   };
 
   const handleValueChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const input = e.target.value.replace(/\D/g, "").replace(/^0+/, ""); // Remove non-digits and leading zeroes
+    const input = e.target.value.replace(/[^\d.]/g, ""); // Allowing only digits and a dot for decimal
     setValue(numberWithCommas(input));
   };
 
   const handlePercentageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const input = e.target.value.replace(/\D/g, "").replace(/^0+/, ""); // Remove non-digits and leading zeroes
+    const input = e.target.value.replace(/[^\d.]/g, ""); // Allowing only digits and a dot for decimal
     setPercentage(numberWithCommas(input));
   };
 
