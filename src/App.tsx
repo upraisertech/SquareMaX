@@ -31,7 +31,7 @@ const App = () => {
   }, [route]);
   
   return (
-    <main className="flex h-screen">
+    <main className="flex h-full">
       <Routes>
         {/* public routes */}
         <Route element={<AuthLayout />}>

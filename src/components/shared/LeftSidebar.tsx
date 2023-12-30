@@ -25,7 +25,7 @@ const LeftSidebar = () => {
   };
 
   return (
-    <nav className="leftsidebar">
+    <nav className="leftsidebar h-screen fixed overflow-y-auto">
       <div className="flex flex-col gap-6">
         <Link to="/" className="flex gap-3 mb-3 items-center">
           <img src="/assets/icons/logo.png" alt="logo" className="" />
@@ -90,7 +90,7 @@ const LeftSidebar = () => {
 
       <Button
         variant="ghost"
-        className="shad-button_ghost"
+        className="shad-button_ghost mt-12"
         onClick={(e) => handleSignOut(e)}>
         <img src="/assets/icons/logout.svg" alt="logout" />
         <p className="small-medium lg:base-medium">Logout</p>
