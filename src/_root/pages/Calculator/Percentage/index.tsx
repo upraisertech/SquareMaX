@@ -1,5 +1,5 @@
 import React, { useState, ChangeEvent } from "react";
-import {useUserContext} from "@/context/AuthContext";
+import { useUserContext } from "@/context/AuthContext";
 
 interface Props {}
 
@@ -27,17 +27,22 @@ const PercentageCalculator: React.FC<Props> = () => {
 
   const handleValueChange = (e: ChangeEvent<HTMLInputElement>) => {
     const input = e.target.value.replace(/[^\d.]/g, ""); // Allowing only digits and a dot for decimal
-    setValue(numberWithCommas(input));
+    setValue(input);
   };
 
   const handlePercentageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const input = e.target.value.replace(/[^\d.]/g, ""); // Allowing only digits and a dot for decimal
-    setPercentage(numberWithCommas(input));
+    setPercentage(input);
   };
 
   return (
-    <div className={`flex flex-col p-3 md:w-[550px] mx-auto items-center justify-center ${mode === "dark" ? "white" : ""}`}>
-      <div className="text-2xl text-left font-bold mb-4 w-full">Percentage Calculator</div>
+    <div
+      className={`flex flex-col p-3 md:w-[550px] mx-auto items-center justify-center ${
+        mode === "dark" ? "white" : ""
+      }`}>
+      <div className="text-2xl text-left font-bold mb-4 w-full">
+        Percentage Calculator
+      </div>
 
       <div className="flex flex-col md:flex-row gap-3 md:gap-6 text-start items-start justify-start w-full">
         <label className="w-full">
@@ -75,8 +80,7 @@ const PercentageCalculator: React.FC<Props> = () => {
 
       <button
         className="px-12 py-3 mb-[16em] text-white rounded-full bg-primary-A1 w-full"
-        onClick={calculatePercentage}
-      >
+        onClick={calculatePercentage}>
         Calculate
       </button>
     </div>
