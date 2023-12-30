@@ -31,7 +31,7 @@ const App = () => {
   }, [route]);
   
   return (
-    <main className="flex h-full">
+    <main className="flex h-full w-full">
       <Routes>
         {/* public routes */}
         <Route element={<AuthLayout />}>

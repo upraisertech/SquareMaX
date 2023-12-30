@@ -1,27 +1,27 @@
 {
+  "manifest_version": 3,
   "short_name": "SquareMaX",
   "name": "SquareMaX",
   "version": "1.0.0",
   "author": "Akorede Salaudeen",
-  "icons": [
-    {
-      "src": "assets/abstract_b.png",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
-    },
-    {
-      "src": "assets/abstract_b.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "assets/abstract_b.png",
-      "type": "image/png",
-      "sizes": "512x512"
-    }
+  "icons": {
+    "16": "assets/abstract_b.png",
+    "32": "assets/abstract_b.png",
+    "48": "assets/abstract_b.png",
+    "128": "assets/abstract_b.png"
+  },
+  "background": {
+    "service_worker": "service-worker.js",
+    "type": "module"
+  },
+  "action": {
+    "default_popup": "index.html"
+  },
+  "permissions": [
+    "scripting"
   ],
-  "start_url": "/",
-  "display": "standalone",
-  "theme_color": "#010d85",
-  "background_color": "#fff"
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*"
+  ]
 }
