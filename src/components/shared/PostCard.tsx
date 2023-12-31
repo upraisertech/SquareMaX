@@ -1,6 +1,6 @@
 import { Models } from "appwrite";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+// import { LinkPreview } from '@dhaiwat10/react-link-preview';
 import { PostStats } from "@/components/shared";
 import { multiFormatDateString } from "@/lib/utils";
 import { useUserContext } from "@/context/AuthContext";
@@ -12,8 +12,28 @@ type PostCardProps = {
 
 const PostCard = ({ post }: PostCardProps) => {
   const { user } = useUserContext();
+  const navigate = useNavigate();
 
-  if (!post.creator) return;
+  if (!post.creator) return null;
+
+  const renderTags = () => {
+    if (!post.tags || post.tags.length === 0) return null;
+    return (
+      <ul className="flex gap-1 mt-2">
+        {post.tags.map((tag: string, index: number) => (
+          <li key={`${tag}${index}`} className="text-light-3 small-regular">
+            #{tag}
+          </li>
+        ))}
+      </ul>
+    );
+  };
+
+  const renderCaption = () => {
+    if (!post.caption) return null;
+    const links = createLinks(post.caption, 16);
+    return <p>{links}</p>;
+  };
 
   return (
     <div className="post-card">
@@ -22,8 +42,7 @@ const PostCard = ({ post }: PostCardProps) => {
           <Link to={`/profile/${post.creator.$id}`}>
             <img
               src={
-                post.creator?.imageUrl ||
-                "/assets/icons/profile-placeholder.svg"
+                post.creator.imageUrl || "/assets/icons/profile-placeholder.svg"
               }
               alt="creator"
               className="w-12 h-12 rounded-full"
@@ -39,49 +58,67 @@ const PostCard = ({ post }: PostCardProps) => {
               <p className="subtle-semibold lg:small-regular ">
                 {multiFormatDateString(post.$createdAt)}
               </p>
-              {post.location ? `•` : ``}
-              <p className="subtle-semibold lg:small-regular">
-                {post.location}
-              </p>
+              {post.location && <p className="subtle-semibold lg:small-regular">
+                {` • ${post.location}`}
+              </p>}
             </div>
           </div>
         </div>
 
-        <Link
-          to={`/update-post/${post.$id}`}
-          className={`${user.id !== post.creator.$id && "hidden"}`}>
-          <img
-            src={"/assets/icons/edit.svg"}
-            alt="edit"
-            width={20}
-            height={20}
-          />
-        </Link>
+        {user.id === post.creator.$id && (
+          <Link to={`/update-post/${post.$id}`}>
+            <img
+              src={"/assets/icons/edit.svg"}
+              alt="edit"
+              width={20}
+              height={20}
+            />
+          </Link>
+        )}
       </div>
 
-      <Link to={`/posts/${post.$id}`}>
-        <div className="small-medium lg:base-medium py-5">
-          <p>{post.caption}</p>
-          <ul className="flex gap-1 mt-2">
-            {post.tags.map((tag: string, index: string) => (
-              <li key={`${tag}${index}`} className="text-light-3 small-regular">
-                #{tag}
-              </li>
-            ))}
-          </ul>
-        </div>
-        {post.imageUrl ? (
-          <img
-            src={post.imageUrl || "/assets/icons/profile-placeholder.svg"}
-            alt="post image"
-            className="post-card_img"
-          />
-        ) : null}
-      </Link>
+      <div className="small-medium lg:base-medium py-5">
+        {renderCaption()}
+        {renderTags()}
+      </div>
 
-      <PostStats post={post} userId={user.id} />
+      {post.imageUrl && (
+        <img
+          onClick={() => navigate(`/posts/${post.$id}`)}
+          src={post.imageUrl}
+          alt="post image"
+          className="cursor-pointer post-card_img"
+        />
+      )}
+
+      <PostStats post={post} userId={user.id} id={post.$id} />
     </div>
   );
 };
 
 export default PostCard;
+
+const createLinks = (text: string, textSize: number): JSX.Element[] => {
+  const urlRegex = /(https?:\/\/[^\s]+)/g;
+  const parts = text.split(urlRegex);
+
+  return parts.map((part, index) => {
+    if (part.match(urlRegex)) {
+      const url = part.match(urlRegex)![0]; // Extracting URL
+      return (
+        <span key={index}>
+          <a
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ textDecoration: "none", fontSize: `${textSize}px` }}
+            title={`Preview: ${url}`}
+          >
+            {part}
+          </a>
+        </span>
+      );
+    }
+    return <span key={index}>{part}</span>;
+  });
+};

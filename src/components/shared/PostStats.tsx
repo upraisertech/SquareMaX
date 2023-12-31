@@ -1,6 +1,7 @@
 import { Models } from "appwrite";
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { MdReadMore } from "react-icons/md";
 
 import { checkIsLiked } from "@/lib/utils";
 import {
@@ -13,10 +14,12 @@ import {
 type PostStatsProps = {
   post: Models.Document;
   userId: string;
+  id: any;
 };
 
-const PostStats = ({ post, userId }: PostStatsProps) => {
+const PostStats = ({ post, userId, id }: PostStatsProps) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const likesList = post.likes.map((user: Models.Document) => user.$id);
 
   const [likes, setLikes] = useState<string[]>(likesList);
@@ -90,7 +93,7 @@ const PostStats = ({ post, userId }: PostStatsProps) => {
         <p className="small-medium lg:base-medium">{likes.length}</p>
       </div>
 
-      <div className="flex gap-2">
+      <div className="flex gap-5">
         <img
           src={isSaved ? "/assets/icons/saved.svg" : "/assets/icons/save.svg"}
           alt="share"
@@ -99,6 +102,10 @@ const PostStats = ({ post, userId }: PostStatsProps) => {
           className="cursor-pointer"
           onClick={(e) => handleSavePost(e)}
         />
+        <div
+          className={`cursor-pointer text-[3.4vh] text-primary-A1 ${location.pathname === "/" ? "" : "hidden"}`}
+          onClick={() => navigate(`/posts/${id}`)}
+        ><MdReadMore /></div>
       </div>
     </div>
   );

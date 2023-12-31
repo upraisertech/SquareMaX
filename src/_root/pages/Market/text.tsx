@@ -84,10 +84,10 @@ const BasicTablePage = () => {
                           <>{row.symbol}</>
                         </div>
                       </td>
-                      <td className="table-td ">
+                      <td title={numberWithCommas((row.price * 1).toFixed(3))} className="table-td ">
                         {numberWithCommas((row.price * 1).toFixed(3))}
                       </td>
-                      <td className="table-td ">
+                      <td title={numberWithCommas((row.marketCap * 1).toFixed(2))} className="table-td">
                         ${numberWithCommas((row.marketCap * 1).toFixed(2))}
                       </td>
                     </tr>

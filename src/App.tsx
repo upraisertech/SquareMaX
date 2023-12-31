@@ -25,11 +25,12 @@ import { useEffect } from "react";
 
 const App = () => {
   const route = useLocation();
-  
+  const location = useLocation();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [route]);
-  
+
   return (
     <main className="flex h-full w-full">
       <Routes>
@@ -51,15 +52,20 @@ const App = () => {
           <Route path="/update-post/:id" element={<EditPost />} />
           <Route path="/posts/:id" element={<PostDetails />} />
           <Route path="/profile/:id/*" element={<Profile />} />
-          <Route path="/update-profile/:id" element={<UpdateProfile profile_image={""} />} />
+          <Route
+            path="/update-profile/:id"
+            element={<UpdateProfile profile_image={""} />}
+          />
         </Route>
       </Routes>
 
-      <MessageBot />
+      <div className={`${location.pathname === "/" ? "" : "hidden"}`}>
+        <MessageBot />
+      </div>
+
       <Toaster />
     </main>
   );
 };
 
 export default App;
-
