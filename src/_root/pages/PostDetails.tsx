@@ -107,7 +107,7 @@ const PostDetails = () => {
             </div>
 
             <div className="w-full flex justify-between items-center">
-              <PostStats post={post} userId={user.id} />
+              <PostStats post={post} userId={user.id} id={undefined} />
 
               <div className="flex-center gap-3">
                 <Link
