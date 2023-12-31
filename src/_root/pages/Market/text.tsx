@@ -39,7 +39,7 @@ const BasicTablePage = () => {
   return (
     <div
       className="w-full h-screen pb-[4em] overflow-x-auto"
-      title="Hover Table">
+      title="Cryptocurrency prices and signals">
       <div className="text-primary-A2 text-[20px] text-center font-bold w-auto">
         Cryptocurrency prices and signals
       </div>
