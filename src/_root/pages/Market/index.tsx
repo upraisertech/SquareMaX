@@ -1,6 +1,6 @@
 // import React from "react";
 // import { useNavigate } from "react-router-dom";
-import Market from "./text";
+import Market from "./CoinList";
 
 const ProfilePage = () => {
   // const navigate = useNavigate();

@@ -1,11 +1,11 @@
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 export default function Loader() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   return (
     <div
-      onClick={() => navigate(`/sign-in`)}
+      // onClick={() => navigate(`/sign-in`)}
       className="flex-center mt-[-13em] md:mt-[-10em] h-screen w-full">
       <img
         src="/assets/icons/loader.svg"

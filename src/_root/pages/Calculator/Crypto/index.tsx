@@ -18,7 +18,7 @@ export interface ICountriesProps {
 }
 
 function CryptoCal() {
-  const { coin } = useUserContext();
+  const { coins } = useUserContext();
   const [accountBalance, setAccountBalance] = useState<string>("");
   const [riskPercentage, setRiskPercentage] = useState<string>("");
   const [stopLossRange, setStopLossRange] = useState<number | string>("");
@@ -89,12 +89,12 @@ function CryptoCal() {
   };
 
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [filteredHistory, setFilteredHistory] = useState<Coin[]>(coin);
+  const [filteredHistory, setFilteredHistory] = useState<Coin[]>(coins);
 
   const handleSearch = (value: string) => {
     setSearchTerm(value);
     setFilteredHistory(
-      coin.filter(
+      coins.filter(
         (coin: Coin) =>
           coin.symbol.toLowerCase().includes(value.toLowerCase()) ||
           coin.name.toLowerCase().includes(value.toLowerCase()) ||

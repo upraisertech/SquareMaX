@@ -24,7 +24,7 @@ const INITIAL_STATE = {
   checkAuthUser: async () => false as boolean,
   mode: "",
   forex: [],
-  coin: false,
+  coins: false,
   toggleMode: () => {},
   loading: false,
   fetchData: () => {},
@@ -40,7 +40,7 @@ interface IContextType {
   checkAuthUser: () => Promise<boolean>;
   mode: string;
   forex: any[];
-  coin: any; // Update type to boolean
+  coins: any; // Update type to boolean
   toggleMode: () => void;
   // fetchData: () => void;
   fetchForexData: () => void;
@@ -54,7 +54,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [mode, setMode] = useState("light");
-  const [coin, setCoin] = useState([]);
+  const [coins, setCoin] = useState([]);
   const [forex, setForex] = useState([]);
 
   const toggleMode = () => {
@@ -171,7 +171,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     toggleMode,
     mode,
     forex,
-    coin,
+    coins,
     fetchForexData,
     isLoading,
     isAuthenticated,

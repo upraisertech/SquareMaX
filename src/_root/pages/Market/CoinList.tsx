@@ -2,13 +2,18 @@ import { useState } from "react";
 import { useUserContext } from "@/context/AuthContext";
 import { useNavigate } from "react-router-dom";
 // import { useLocation } from "react-router-dom";
+import "./coin.css";
 
 interface Coin {
+  market_cap_rank: any;
+  price_change_percentage_24h: null;
+  total_volume: any;
   name: string;
   image: string;
   symbol: string;
   current_price: number;
   market_cap: number;
+  toFixed: number;
   // Add any other properties here as needed
 }
 
@@ -74,51 +79,60 @@ const BasicTablePage = () => {
           placeholder="Search for a coin..."
         />
       </div>
-      <div className="inline-block w-full align-middle md:mx-[3rem]">
+      <div className="inline-block w-full md:w-[90%] align-middle md:mx-[2rem]">
         <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-slate-100 table-fixed dark:divide-slate-700">
-            <thead className="bg-primary-A1 text-white text-left -mt-12 mb-7">
-              <tr>
-                {columns.map((column, i) => (
-                  <th key={i} scope="col" className="py-3 pl-3 table-th">
-                    {column.label}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-slate-700 text-left">
+          <table className="container">
+            <div className="heading gap-3">
+              <p>#</p>
+              <p className="coin-name">Coin</p>
+              <p>Price</p>
+              <p>24h</p>
+              <p className="">Mkt Cap</p>
+              <p className="hide-mobile">Volume</p>
+            </div>
+            <div className="w-full text-left">
               {filteredHistory.length !== 0 ? (
-                filteredHistory.map((row, i) => {
+                filteredHistory.map((coin) => {
                   return (
-                    <tr
-                      onClick={() => navigate(`/market/${row.name}`)}
-                      key={i}
-                      className="hover:bg-primary-A1 hover:text-white cursor-pointer">
-                      <td className="table-td pl-3">{i + 1}</td>
-                      <td className="flex table-td py-3 gap-2 justify-start items-center">
+                    <div
+                      onClick={() => navigate(`/market/${coin.name}`)}
+                      className="w-full coin-row gap-3">
+                      <p>{coin.market_cap_rank}</p>
+                      <p className="flex py-3 gap-2 mr-auto justify-start items-center">
                         <img
-                          src={row.image}
+                          src={coin.image}
                           className="w-[20px]"
-                          alt={row.name}
+                          alt={coin.name}
                         />
-                        <div className="flex flex-col md:flex-row gap-x-3 justify-center items-center">
-                          <div className="text-[12px] font-bold">{row.name}</div>
-                          <div className="uppercase text-[12px] md:text-[10px]">{row.symbol}</div>
+                        <div className="flex flex-col md:flex-row gap-x-3 justify-center items-start">
+                          <div className="text-[12px] font-bold">
+                            {coin.name}
+                          </div>
+                          <div className="uppercase text-[12px] md:text-[10px]">
+                            {coin.symbol}
+                          </div>
                         </div>
-                      </td>
-                      <td
-                        title={(row.current_price * 1).toFixed(10)}
-                        className="table-td ">
-                        {row.current_price}
-                      </td>
-                      <td
-                        title={numberWithCommas(
-                          (row.market_cap * 1).toFixed(2)
-                        )}
-                        className="table-td">
-                        ${abbreviateMarketCap(row.market_cap * 1)}
-                      </td>
-                    </tr>
+                      </p>
+                      <p className="flex flex-col text-left mr-auto items-start">${coin.current_price.toLocaleString()}</p>
+                      <p
+                        className={`flex flex-col text-right mr-auto items-start
+                          ${coin.price_change_percentage_24h &&
+                          coin.price_change_percentage_24h < 0
+                            ? "text-red"
+                            : "text-[green]"}
+                        `}>
+                        {coin && coin.price_change_percentage_24h !== null
+                          ? (coin.price_change_percentage_24h * 1).toFixed(2)
+                          : "N/A"}
+                        %
+                      </p>
+                      <p className="">
+                        ${abbreviateMarketCap(coin.market_cap * 1)}
+                      </p>
+                      <p className="hide-mobile">
+                        ${coin.total_volume.toLocaleString()}
+                      </p>
+                    </div>
                   );
                 })
               ) : (
@@ -128,7 +142,7 @@ const BasicTablePage = () => {
                   Not found
                 </td>
               )}
-            </tbody>
+            </div>
           </table>
         </div>
       </div>
@@ -136,22 +150,22 @@ const BasicTablePage = () => {
   );
 };
 
-const columns = [
-  {
-    label: "#",
-    field: "harsh",
-  },
-  {
-    label: "All coins",
-    field: "all_coins",
-  },
-  {
-    label: "Price",
-    field: "price",
-  },
-  {
-    label: "Market cap",
-    field: "marketCap",
-  },
-];
+// const columns = [
+//   {
+//     label: "#",
+//     field: "harsh",
+//   },
+//   {
+//     label: "All coins",
+//     field: "all_coins",
+//   },
+//   {
+//     label: "Price",
+//     field: "price",
+//   },
+//   {
+//     label: "Market cap",
+//     field: "marketCap",
+//   },
+// ];
 export default BasicTablePage;

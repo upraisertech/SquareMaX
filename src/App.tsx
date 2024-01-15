@@ -22,6 +22,7 @@ import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
 import { MessageBot } from "./components/shared";
 import { useEffect } from "react";
+import CoinHistory from "./_root/pages/Market/CoinHistory";
 
 const App = () => {
   const route = useLocation();
@@ -45,6 +46,7 @@ const App = () => {
           <Route index element={<Home />} />
           <Route path="/calculator" element={<Calculator />} />
           <Route path="/market" element={<Market />} />
+          <Route path="/market/:name" element={<CoinHistory />} />
           <Route path="/explore" element={<Explore />} />
           <Route path="/saved" element={<Saved />} />
           <Route path="/all-users" element={<AllUsers />} />
