@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { createContext, useContext, useEffect, useState } from "react";
-
+import { SetStateAction, createContext, useContext, useEffect, useState } from "react";
+import axios from 'axios'
 import { IUser } from "@/types";
 import { getCurrentUser } from "@/lib/appwrite/api";
 
@@ -42,7 +42,7 @@ interface IContextType {
   forex: any[];
   coin: any; // Update type to boolean
   toggleMode: () => void;
-  fetchData: () => void;
+  // fetchData: () => void;
   fetchForexData: () => void;
 }
 
@@ -111,20 +111,31 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
 
 
-  const fetchData = async () => {
-    try {
-      const response = await fetch(`https://api.coinranking.com/v2/coins?token=coinranking9bbba664219afc1683d728ce38d82a8cc832637a8c765ad9`);
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const data = await response.json();
-      setCoin(data.data.coins);
-    } catch (error) {
-      console.error("Error fetching coin data:", error);
-    } finally {
-      // setIsLoading(false);
-    }
-  };
+  // const fetchData = async () => {
+  //   try {
+  //     const response = await fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=200&page=1&sparkline=false`);
+  //     if (!response.ok) {
+  //       throw new Error("Network response was not ok");
+  //     }
+  //     const data = await response.json();
+  //     setCoin(data.data);
+  //     console.log(data.data);
+  //   } catch (error) {
+  //     console.error("Error fetching coin data:", error);
+  //   } finally {
+  //     // setIsLoading(false);
+  //   }
+  // };
+  const url = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=200&page=1&sparkline=false'
+
+  useEffect(() => {
+    axios.get(url).then((response: { data: SetStateAction<never[]>; }) => {
+      setCoin(response.data)
+      // console.log(response.data)
+    }).catch((error: any) => {
+      console.log(error)
+    })
+  }, [])
 
   const fetchForexData = async () => {
     try {
@@ -142,7 +153,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   useEffect(() => {
-    fetchData();
     fetchForexData();
   }, []);
 
@@ -162,7 +172,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     mode,
     forex,
     coin,
-    fetchData,
     fetchForexData,
     isLoading,
     isAuthenticated,

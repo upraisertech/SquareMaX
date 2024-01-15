@@ -1,26 +1,26 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useUserContext } from "@/context/AuthContext";
 // import { useLocation } from "react-router-dom";
 
 interface Coin {
-  marketCap: number;
-  symbol: string;
   name: string;
-  price: number;
-  iconUrl: string;
+  image: string;
+  symbol: string;
+  current_price: number;
+  market_cap: number;
   // Add any other properties here as needed
 }
 
 const BasicTablePage = () => {
-  const { fetchData, coin } = useUserContext();
+  const { coin } = useUserContext();
 
   const numberWithCommas = (x: string) => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
 
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [filteredHistory, setFilteredHistory] = useState<Coin[]>(coin);
@@ -75,7 +75,7 @@ const BasicTablePage = () => {
                       <td className="table-td pl-3">{i + 1}</td>
                       <td className="flex table-td py-3 gap-2 justify-start items-center">
                         <img
-                          src={row.iconUrl}
+                          src={row.image}
                           className="w-[20px]"
                           alt={row.name}
                         />
@@ -84,11 +84,11 @@ const BasicTablePage = () => {
                           <>{row.symbol}</>
                         </div>
                       </td>
-                      <td title={numberWithCommas((row.price * 1).toFixed(3))} className="table-td ">
-                        {numberWithCommas((row.price * 1).toFixed(3))}
+                      <td title={((row.current_price * 1).toFixed(6))} className="table-td ">
+                        {numberWithCommas((row.current_price * 1).toFixed(6))}
                       </td>
-                      <td title={numberWithCommas((row.marketCap * 1).toFixed(2))} className="table-td">
-                        ${numberWithCommas((row.marketCap * 1).toFixed(2))}
+                      <td title={numberWithCommas((row.market_cap * 1).toFixed(2))} className="table-td">
+                        ${numberWithCommas((row.market_cap * 1).toFixed(2))}
                       </td>
                     </tr>
                   );

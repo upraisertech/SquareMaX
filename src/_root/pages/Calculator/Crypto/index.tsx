@@ -5,8 +5,8 @@ import { useUserContext } from "@/context/AuthContext";
 interface Coin {
   symbol: string;
   name: string;
-  price: string;
-  iconUrl: string;
+  current_price: string;
+  image: string;
   // Add any other properties here as needed
 }
 export interface IListsProps {
@@ -18,7 +18,7 @@ export interface ICountriesProps {
 }
 
 function CryptoCal() {
-  const { fetchData, coin } = useUserContext();
+  const { coin } = useUserContext();
   const [accountBalance, setAccountBalance] = useState<string>("");
   const [riskPercentage, setRiskPercentage] = useState<string>("");
   const [stopLossRange, setStopLossRange] = useState<number | string>("");
@@ -40,7 +40,7 @@ function CryptoCal() {
   // Define the API endpoint URL
   const HandleApi = () => {
     setIsOpen(!isOpen);
-    fetchData();
+    // fetchData();
   };
 
   const calculatePositionSize = () => {
@@ -98,7 +98,7 @@ function CryptoCal() {
         (coin: Coin) =>
           coin.symbol.toLowerCase().includes(value.toLowerCase()) ||
           coin.name.toLowerCase().includes(value.toLowerCase()) ||
-          coin.price.toLowerCase().includes(value.toLowerCase())
+          coin.current_price.toLowerCase().includes(value.toLowerCase())
       )
     );
   };
@@ -126,7 +126,7 @@ function CryptoCal() {
                     {selectedInstrument ? (
                       <div className="flex flex-row justify-center items-center gap-3">
                         <img
-                          src={selectedInstrument.iconUrl}
+                          src={selectedInstrument.image}
                           className="w-[20px] rounded-sm"
                           alt=""
                         />
@@ -158,7 +158,7 @@ function CryptoCal() {
                       }}>
                       <div className="flex flex-row gap-3 items-center justify-start hover:bg-gray-100">
                         <img
-                          src={coin.iconUrl}
+                          src={coin.image}
                           className="w-[25px] rounded-sm"
                           alt=""
                         />
@@ -238,7 +238,7 @@ function CryptoCal() {
             <input
               type="number"
               placeholder={price}
-              value={selectedInstrument ? (selectedInstrument.price) : ""}
+              value={selectedInstrument ? (selectedInstrument.current_price) : ""}
               onChange={handlePriceChange}
               className="input text-black p-3 input-bordered bg-[white] rounded-md w-full"
             />
