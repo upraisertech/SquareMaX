@@ -9,3 +9,4 @@ export { default as FileUploader } from "./FileUploader";
 export { default as ProfileUploader } from "./ProfileUploader";
 export { default as PostStats } from "./PostStats";
 export { default as MessageBot } from "./MessageBot/Bot";
+export { default as Skeleton } from "./Skeleton";

@@ -1,7 +1,7 @@
 import { Models } from "appwrite";
 
 // import { useToast } from "@/components/ui/use-toast";
-import { Loader, PostCard, UserCard } from "@/components/shared";
+import { Loader, PostCard, UserCard, Skeleton } from "@/components/shared";
 import { useGetRecentPosts, useGetUsers } from "@/lib/react-query/queries";
 import { useState, useEffect } from "react";
 
@@ -49,11 +49,11 @@ const Home = () => {
 
   return (
     <div className="flex flex-1 w-full">
-      <div className="home-container">
+      <div className="home-container h-screen">
         <div className="home-posts w-full">
           <h2 className="h3-bold md:h2-bold text-left w-full">Home Feed</h2>
           {isPostLoading && !sortedPosts ? (
-            <Loader />
+            <Skeleton />
           ) : (
             <ul className="flex flex-col flex-1 gap-9 w-full">
               {sortedPosts?.map((post: Models.Document) => (

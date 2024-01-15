@@ -6,7 +6,7 @@ import { useNavigate, Link, NavLink, useLocation } from "react-router-dom";
 import { navdata } from "@/constants/index";
 import { INITIAL_USER, useUserContext } from "@/context/AuthContext";
 import { useSignOutAccount } from "@/lib/react-query/queries";
-import Loader from "./Loader";
+// import Loader from "./Loader";
 import { IoMdClose } from "react-icons/io";
 import { FC, ReactElement } from "react";
 import { INavLink } from "@/types";
@@ -45,10 +45,18 @@ const SideNavMobile: FC<Props> = ({ setSideNav }): ReactElement => {
 
         {isLoading || !user.email ? (
           <div className="h-14">
-            <Loader />
+            {/* <Loader /> */}
+            <button
+              className="px-12 py-3 mb-[16em] text-white rounded-full bg-primary-A1 w-full"
+              onClick={() => navigate(`/sign-in`)}>
+              Signin
+            </button>
           </div>
         ) : (
-          <Link to={`/profile/${user.id}`} onClick={() => setSideNav(false)} className="flex gap-3 items-center">
+          <Link
+            to={`/profile/${user.id}`}
+            onClick={() => setSideNav(false)}
+            className="flex gap-3 items-center">
             <img
               src={user.imageUrl || "/assets/icons/profile-placeholder.svg"}
               alt="profile"
@@ -59,7 +67,8 @@ const SideNavMobile: FC<Props> = ({ setSideNav }): ReactElement => {
                 {user.name}
                 {user?.verified === true && (
                   <>
-                    <img title="verified user"
+                    <img
+                      title="verified user"
                       className="w-3 h-3 ml-1"
                       src="/assets/images/M/checklist.png"
                     />
@@ -71,7 +80,9 @@ const SideNavMobile: FC<Props> = ({ setSideNav }): ReactElement => {
           </Link>
         )}
 
-        <ul onClick={() => setSideNav(false)} className="flex flex-col mt-5 gap-2">
+        <ul
+          onClick={() => setSideNav(false)}
+          className="flex flex-col mt-5 gap-2">
           {navdata.map((link: INavLink) => {
             const isActive = pathname === link.route;
 
@@ -97,13 +108,13 @@ const SideNavMobile: FC<Props> = ({ setSideNav }): ReactElement => {
             );
           })}
         </ul>
-      <Button
-        variant="ghost"
-        className="shad-button_ghost"
-        onClick={(e) => handleSignOut(e)}>
-        <img src="/assets/icons/logout.svg" alt="logout" />
-        <p className="small-medium lg:base-medium">Logout</p>
-      </Button>
+        <Button
+          variant="ghost"
+          className="shad-button_ghost"
+          onClick={(e) => handleSignOut(e)}>
+          <img src="/assets/icons/logout.svg" alt="logout" />
+          <p className="small-medium lg:base-medium">Logout</p>
+        </Button>
       </div>
     </>
   );

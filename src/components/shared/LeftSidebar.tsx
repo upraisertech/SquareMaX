@@ -2,7 +2,7 @@ import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 
 import { INavLink } from "@/types";
 import { sidebarLinks } from "@/constants";
-import { Loader } from "@/components/shared";
+// import { Loader } from "@/components/shared";
 import { Button } from "@/components/ui/button";
 import { useSignOutAccount } from "@/lib/react-query/queries";
 import { useUserContext, INITIAL_USER } from "@/context/AuthContext";
@@ -34,7 +34,11 @@ const LeftSidebar = () => {
 
         {isLoading || !user.email ? (
           <div className="h-14">
-            <Loader />
+            <button
+              className="px-12 py-3 mb-[16em] text-white rounded-full bg-primary-A1 w-full"
+              onClick={() => navigate(`/sign-in`)}>
+              Signin
+            </button>
           </div>
         ) : (
           <Link to={`/profile/${user.id}`} className="flex gap-3 items-center">
@@ -48,7 +52,8 @@ const LeftSidebar = () => {
                 {user.name}
                 {user?.verified === true && (
                   <>
-                    <img title="verified user"
+                    <img
+                      title="verified user"
                       className="w-3 h-3 ml-1"
                       src="/assets/images/M/checklist.png"
                     />

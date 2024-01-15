@@ -1,13 +1,14 @@
-// import { Models } from "appwrite";
 import CalcTap from "./CalcTap";
 // import { useToast } from "@/components/ui/use-toast";
 import { Loader, UserCard } from "@/components/shared";
 import { useGetRecentPosts, useGetUsers } from "@/lib/react-query/queries";
+import { useEffect, useState } from "react";
 
 const Calculator = () => {
   // const { toast } = useToast();
+  const [isLoading, setIsLoading] = useState(true);
 
-  const { isLoading: isPostLoading, isError: isErrorPosts } =
+  const {isError: isErrorPosts } =
     useGetRecentPosts();
   const {
     data: creators,
@@ -15,6 +16,12 @@ const Calculator = () => {
     isError: isErrorCreators,
   } = useGetUsers(10);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+  }, []);
+  
   if (isErrorPosts || isErrorCreators) {
     return (
       <div className="flex flex-1">
@@ -32,7 +39,7 @@ const Calculator = () => {
     <div className="flex flex-row overflow-hidden h-full mx-auto items-start justify-center w-full">
 
       <div className="w-full">
-        {isPostLoading ? <Loader /> : <CalcTap />}
+        {isLoading ? <Loader /> : <CalcTap />}
       </div>
 
       <div className="home-creators">
