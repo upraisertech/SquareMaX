@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useUserContext } from "@/context/AuthContext";
 import { useNavigate } from "react-router-dom";
 // import { useLocation } from "react-router-dom";
+import { FaSearch } from "react-icons/fa";
 import "./coin.css";
 
 interface Coin {
@@ -69,17 +70,21 @@ const BasicTablePage = () => {
       <div className="text-primary-A2 text-[20px] text-center font-bold w-auto">
         Cryptocurrency prices and signals
       </div>
-      <div className="flex flex-row p-3 gap-10 items-center justify-between w-full">
+      <div className="flex flex-col md:flex-row p-3 gap-10 items-center justify-center md:justify-between w-full">
         <div></div>
-        <input
-          onChange={(e) => handleSearch(e.target.value)}
-          value={searchTerm}
-          className="text-black text-[15px] border border-grey_80 p-2 rounded-md font-normal w-[20em] focus-within:ring-2 ring-primary-A1"
-          type="text"
-          placeholder="Search for a coin..."
-        />
+        <div className="flex flex-row w-full md:w-[20em] bg-white gap-3 text-black border border-grey_80 p-2 rounded-md focus-within:ring-2 ring-primary-A1 items-center justify-center">
+          <FaSearch />
+          <input
+            onChange={(e) => handleSearch(e.target.value)}
+            value={searchTerm}
+            className="text-black text-[15px] font-normal w-full border-none outline-none"
+            type="text"
+            placeholder="Search for a coin..."
+          />
+        </div>
       </div>
-      <div className="inline-block w-full md:w-[90%] align-middle md:mx-[2rem]">
+
+      <div className="inline-block w-full md:w-[95%] align-middle md:mx-[2rem]">
         <div className="overflow-x-auto">
           <table className="container">
             <div className="heading gap-3">
@@ -113,13 +118,17 @@ const BasicTablePage = () => {
                           </div>
                         </div>
                       </p>
-                      <p className="flex flex-col text-left mr-auto items-start">${coin.current_price.toLocaleString()}</p>
+                      <p className="flex flex-col text-left mr-auto items-start">
+                        ${coin.current_price.toLocaleString()}
+                      </p>
                       <p
                         className={`flex flex-col text-right mr-auto items-start
-                          ${coin.price_change_percentage_24h &&
-                          coin.price_change_percentage_24h < 0
-                            ? "text-red"
-                            : "text-[green]"}
+                          ${
+                            coin.price_change_percentage_24h &&
+                            coin.price_change_percentage_24h < 0
+                              ? "text-red"
+                              : "text-[green]"
+                          }
                         `}>
                         {coin && coin.price_change_percentage_24h !== null
                           ? (coin.price_change_percentage_24h * 1).toFixed(2)
@@ -130,7 +139,7 @@ const BasicTablePage = () => {
                         ${abbreviateMarketCap(coin.market_cap * 1)}
                       </p>
                       <p className="hide-mobile">
-                        ${coin.total_volume.toLocaleString()}
+                        ${(coin.total_volume.toLocaleString())}
                       </p>
                     </div>
                   );
