@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useUserContext } from "@/context/AuthContext";
+import { useNavigate } from "react-router-dom";
 // import { useLocation } from "react-router-dom";
 
 interface Coin {
@@ -13,10 +14,30 @@ interface Coin {
 
 const BasicTablePage = () => {
   const { coin } = useUserContext();
+  let navigate = useNavigate();
+
+  // const numberWithCommas = (x: string) => {
+  //   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  // };
 
   const numberWithCommas = (x: string) => {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    const parts = x.split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return parts.join(".");
   };
+  
+  const abbreviateMarketCap = (market_cap: number) => {
+    if (market_cap >= 1000000) {
+      const abbreviatedMarketCap = (market_cap / 1000000000).toFixed(2);
+      return `${abbreviatedMarketCap}M`;
+    }
+    if (market_cap >= 1000) {
+      const abbreviatedMarketCap = (market_cap / 1000).toFixed(2);
+      return `${abbreviatedMarketCap}K`;
+    } else {
+    return numberWithCommas(market_cap.toFixed(2));
+  }
+};
 
   // useEffect(() => {
   //   fetchData();
@@ -70,8 +91,9 @@ const BasicTablePage = () => {
                 filteredHistory.map((row, i) => {
                   return (
                     <tr
+                    onClick={() => navigate(`/market/${row.name}`)}
                       key={i}
-                      className="hover:bg-primary-A1 hover:text-white">
+                      className="hover:bg-primary-A1 hover:text-white cursor-pointer">
                       <td className="table-td pl-3">{i + 1}</td>
                       <td className="flex table-td py-3 gap-2 justify-start items-center">
                         <img
@@ -84,11 +106,11 @@ const BasicTablePage = () => {
                           <>{row.symbol}</>
                         </div>
                       </td>
-                      <td title={((row.current_price * 1).toFixed(6))} className="table-td ">
-                        {numberWithCommas((row.current_price * 1).toFixed(6))}
+                      <td title={((row.current_price * 1).toFixed(10))} className="table-td ">
+                        {row.current_price}
                       </td>
                       <td title={numberWithCommas((row.market_cap * 1).toFixed(2))} className="table-td">
-                        ${numberWithCommas((row.market_cap * 1).toFixed(2))}
+                        ${abbreviateMarketCap(row.market_cap * 1)}
                       </td>
                     </tr>
                   );
