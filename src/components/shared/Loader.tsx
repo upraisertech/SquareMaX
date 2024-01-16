@@ -6,7 +6,7 @@ export default function Loader() {
   return (
     <div
       // onClick={() => navigate(`/sign-in`)}
-      className="flex-center mt-[-13em] md:mt-[-10em] h-screen w-full">
+      className={`flex-center w-full ${location.pathname === "/calculator" ? `mt-[-13em] md:mt-[-10em] h-screen`:""}`}>
       <img
         src="/assets/icons/loader.svg"
         alt="loader"

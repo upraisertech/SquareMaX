@@ -20,13 +20,13 @@ import SigninForm from "@/_auth/forms/SigninForm";
 import { Toaster } from "@/components/ui/toaster";
 
 import "./globals.css";
-import { MessageBot } from "./components/shared";
+// import { MessageBot } from "./components/shared";
 import { useEffect } from "react";
 import CoinHistory from "./_root/pages/Market/CoinHistory";
 
 const App = () => {
   const route = useLocation();
-  const location = useLocation();
+  // const location = useLocation();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -61,9 +61,9 @@ const App = () => {
         </Route>
       </Routes>
 
-      <div className={`${location.pathname === "/" ? "" : "hidden"}`}>
+      {/* <div className={`${location.pathname === "/" ? "" : "hidden"}`}>
         <MessageBot />
-      </div>
+      </div> */}
 
       <Toaster />
     </main>

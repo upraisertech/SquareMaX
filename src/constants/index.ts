@@ -2,7 +2,7 @@ export const sidebarLinks = [
   {
     imgURL: "/assets/icons/home.svg",
     route: "/",
-    label: "Home",
+    label: "Portfilo",
   },
   {
     imgURL: "/assets/icons/calculator.png",
@@ -14,11 +14,11 @@ export const sidebarLinks = [
     route: "/market",
     label: "Market",
   },
-  {
-    imgURL: "/assets/icons/wallpaper.svg",
-    route: "/explore",
-    label: "Explore",
-  },
+  // {
+  //   imgURL: "/assets/icons/wallpaper.svg",
+  //   route: "/explore",
+  //   label: "Explore",
+  // },
   {
     imgURL: "/assets/icons/people.svg",
     route: "/all-users",
@@ -29,18 +29,18 @@ export const sidebarLinks = [
     route: "/saved",
     label: "Bookmarks",
   },
-  {
-    imgURL: "/assets/icons/gallery-add.svg",
-    route: "/create-post",
-    label: "Create Post",
-  },
+  // {
+  //   imgURL: "/assets/icons/gallery-add.svg",
+  //   route: "/create-post",
+  //   label: "Create Post",
+  // },
 ];
 
 export const bottombarLinks = [
   {
     imgURL: "/assets/icons/home.svg",
     route: "/",
-    label: "Home",
+    label: "Portfilo",
   },
   {
     imgURL: "/assets/icons/calculator.png",
@@ -63,13 +63,13 @@ export const navdata = [
   {
     imgURL: "/assets/icons/home.svg",
     route: "/",
-    label: "Home",
+    label: "Portfilo",
   },
-  {
-    imgURL: "/assets/icons/wallpaper.svg",
-    route: "/explore",
-    label: "Explore",
-  },
+  // {
+  //   imgURL: "/assets/icons/wallpaper.svg",
+  //   route: "/explore",
+  //   label: "Explore",
+  // },
   {
     imgURL: "/assets/icons/people.svg",
     route: "/all-users",
@@ -80,9 +80,9 @@ export const navdata = [
     route: "/saved",
     label: "Bookmarks",
   },
-  {
-    imgURL: "/assets/icons/gallery-add.svg",
-    route: "/create-post",
-    label: "Create Post",
-  },
+  // {
+  //   imgURL: "/assets/icons/gallery-add.svg",
+  //   route: "/create-post",
+  //   label: "Create Post",
+  // },
 ];

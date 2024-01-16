@@ -1,8 +1,9 @@
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 import { INavLink } from "@/types";
 import { sidebarLinks } from "@/constants";
-// import { Loader } from "@/components/shared";
+import { Loader } from "@/components/shared";
 import { Button } from "@/components/ui/button";
 import { useSignOutAccount } from "@/lib/react-query/queries";
 import { useUserContext, INITIAL_USER } from "@/context/AuthContext";
@@ -10,9 +11,14 @@ import { useUserContext, INITIAL_USER } from "@/context/AuthContext";
 const LeftSidebar = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const [hide, setHide] = useState(true);
   const { user, setUser, setIsAuthenticated, isLoading } = useUserContext();
 
   const { mutate: signOut } = useSignOutAccount();
+
+  setTimeout(() => {
+    setHide(false);
+  }, 3000);
 
   const handleSignOut = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -33,13 +39,19 @@ const LeftSidebar = () => {
         </Link>
 
         {isLoading || !user.email ? (
-          <div className="h-14">
-            <button
-              className="px-12 py-3 mb-[16em] text-white rounded-full bg-primary-A1 w-full"
-              onClick={() => navigate(`/sign-in`)}>
-              Signin
-            </button>
-          </div>
+          <>
+            {hide ? (
+              <Loader />
+            ) : (
+              <div className="h-14">
+                <button
+                  className="px-12 py-3 mb-[16em] text-white rounded-full bg-primary-A1 w-full"
+                  onClick={() => navigate(`/sign-in`)}>
+                  Signin
+                </button>
+              </div>
+            )}
+          </>
         ) : (
           <Link to={`/profile/${user.id}`} className="flex gap-3 items-center">
             <img

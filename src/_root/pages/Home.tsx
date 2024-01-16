@@ -1,38 +1,38 @@
-import { Models } from "appwrite";
+// import { Models } from "appwrite";
+// import { useState, useEffect } from "react";
 
 // import { useToast } from "@/components/ui/use-toast";
-import { Loader, PostCard, UserCard, Skeleton } from "@/components/shared";
+import { Loader, UserCard, NoAuth } from "@/components/shared";
 import { useGetRecentPosts, useGetUsers } from "@/lib/react-query/queries";
-import { useState, useEffect } from "react";
+import { useUserContext } from "@/context/AuthContext";
 
 const Home = () => {
+  const { show } = useUserContext();
+
   const {
     data: creators,
     isLoading: isUserLoading,
     isError: isErrorCreators,
   } = useGetUsers(10);
 
-  const {
-    data: postsData,
-    isLoading: isPostLoading,
-    isError: isErrorPosts,
-  } = useGetRecentPosts();
+  const { isError: isErrorPosts } = useGetRecentPosts();
 
-  const [sortedPosts, setSortedPosts] = useState<Models.Document[]>([]);
+  // const { data: postsData, isError: isErrorPosts } = useGetRecentPosts();
+  // const [sortedPosts, setSortedPosts] = useState<Models.Document[]>([]);
 
-  useEffect(() => {
-    if (postsData && postsData.documents) {
-      const sorted = postsData.documents
-        .slice()
-        .sort((a: Models.Document, b: Models.Document) => {
-          // Change '$createdAt' to your post creation date property
-          const dateA = new Date(a.createdAt).getTime();
-          const dateB = new Date(b.createdAt).getTime();
-          return dateB - dateA; // Sort in descending order, modify if needed
-        });
-      setSortedPosts(sorted);
-    }
-  }, [postsData]);
+  // useEffect(() => {
+  //   if (postsData && postsData.documents) {
+  //     const sorted = postsData.documents
+  //       .slice()
+  //       .sort((a: Models.Document, b: Models.Document) => {
+  //         // Change '$createdAt' to your post creation date property
+  //         const dateA = new Date(a.createdAt).getTime();
+  //         const dateB = new Date(b.createdAt).getTime();
+  //         return dateB - dateA; // Sort in descending order, modify if needed
+  //       });
+  //     setSortedPosts(sorted);
+  //   }
+  // }, [postsData]);
 
   if (isErrorPosts || isErrorCreators) {
     return (
@@ -51,16 +51,16 @@ const Home = () => {
     <div className="flex flex-1 w-full">
       <div className="home-container h-screen">
         <div className="home-posts w-full">
-          <h2 className="h3-bold md:h2-bold text-left w-full">Home Feed</h2>
-          {isPostLoading && !sortedPosts ? (
-            <Skeleton />
+          <h2 className="h3-bold md:h2-bold text-left w-full">
+            Portfilo Battle
+          </h2>
+          {show ? (
+            <NoAuth />
           ) : (
             <ul className="flex flex-col flex-1 gap-9 w-full">
-              {sortedPosts?.map((post: Models.Document) => (
-                <li key={post.$id} className="flex justify-center w-full">
-                  <PostCard post={post} />
-                </li>
-              ))}
+              <h2 className="h3-bold md:h2-bold text-left w-full">
+                Portfilo Battle
+              </h2>
             </ul>
           )}
         </div>

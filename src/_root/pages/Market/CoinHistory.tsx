@@ -1,9 +1,9 @@
+import { useEffect } from "react";
 import { useUserContext } from "@/context/AuthContext";
 import { useParams, useNavigate } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
-import { MdOutlineArrowDropUp,MdOutlineArrowDropDown  } from "react-icons/md";
+import { MdOutlineArrowDropUp, MdOutlineArrowDropDown } from "react-icons/md";
 import "./coin.css";
-// import { useEffect, useState } from "react";
 
 // interface Coin {
 //   id: string;
@@ -14,7 +14,7 @@ import "./coin.css";
 // }
 
 const CoinHistory = () => {
-  const { coins } = useUserContext();
+  const { coins, fetchData } = useUserContext();
   const { name } = useParams();
   let navigate = useNavigate();
 
@@ -22,9 +22,13 @@ const CoinHistory = () => {
     (coin: { name: { toString: () => string | undefined } }) =>
       coin.name.toString() === name
   );
+  
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
-    <div className="flex flex-col mt-7 m-3 gap-6 h-screen">
+    <div className="flex flex-col mt-7 m-3 gap-6 h-screen w-full">
       <div className="flex items-center justify-start">
         <div
           onClick={() => navigate(-1)}
@@ -35,13 +39,15 @@ const CoinHistory = () => {
         <h1 className="text-[grey]">{coin.name} Price</h1>
       </div>
       <div className="">
-        <div className="rank">
-          <span className="bg-primary-A1 px-3 py-1 rounded-lg shadow-lg">
-            Rank # {coin.market_cap_rank}
-          </span>
-        </div>
+        <span className="bg-primary-A1 px-3 py-1 rounded-lg shadow-lg">
+          Rank # {coin.market_cap_rank}
+        </span>
         <p className="flex py-3 gap-2 mt-3 justify-start items-center">
-          <img src={coin.image} className="w-[50px] rounded-full" alt={coin.name} />
+          <img
+            src={coin.image}
+            className="w-[50px] rounded-full"
+            alt={coin.name}
+          />
           <div className="flex flex-col gap-x-3 justify-center items-start">
             <div className="text-[16px] font-bold">{coin.name}</div>
             <div className="uppercase text-[12px] md:text-[10px]">
@@ -66,9 +72,11 @@ const CoinHistory = () => {
           `}>
             <div>
               {coin.price_change_percentage_24h &&
-              coin.price_change_percentage_24h < 0
-                ? <MdOutlineArrowDropDown />
-                : <MdOutlineArrowDropUp />}
+              coin.price_change_percentage_24h < 0 ? (
+                <MdOutlineArrowDropDown />
+              ) : (
+                <MdOutlineArrowDropUp />
+              )}
             </div>
             {coin && coin.price_change_percentage_24h !== null
               ? (coin.price_change_percentage_24h * 1).toFixed(2)
@@ -78,7 +86,7 @@ const CoinHistory = () => {
         </div>
       </div>
 
-      <div className="content">
+      <div className="">
         <table>
           <thead>
             <tr>
@@ -123,22 +131,16 @@ const CoinHistory = () => {
                 ) : null}
               </td>
               <td>
-                {coin.market_data?.price_change_percentage_24h_in_currency ? (
+                {coin.price_change_percentage_24h_in_currency ? (
                   <p>
-                    {coin.market_data.price_change_percentage_14d_in_currency.usd.toFixed(
-                      1
-                    )}
-                    %
+                    {coin.price_change_percentage_14d_in_currency.toFixed(1)}%
                   </p>
                 ) : null}
               </td>
               <td>
-                {coin.market_data?.price_change_percentage_24h_in_currency ? (
+                {coin.price_change_percentage_24h_in_currency ? (
                   <p>
-                    {coin.market_data.price_change_percentage_30d_in_currency.usd.toFixed(
-                      1
-                    )}
-                    %
+                    {coin.price_change_percentage_30d_in_currency.toFixed(1)}%
                   </p>
                 ) : null}
               </td>
@@ -156,41 +158,37 @@ const CoinHistory = () => {
           </tbody>
         </table>
       </div>
-      <div className="content">
-        <div className="stats">
-          <div className="left">
-            <div className="row">
-              <h4>24 Hour Low</h4>
-              {coin.market_data?.low_24h ? (
-                <p>${coin.market_data.low_24h.usd.toLocaleString()}</p>
-              ) : null}
-            </div>
-            <div className="row">
-              <h4>24 Hour High</h4>
-              {coin.market_data?.high_24h ? (
-                <p>${coin.market_data.high_24h.usd.toLocaleString()}</p>
-              ) : null}{" "}
-            </div>
+
+      <div className="flex flex-col gap-3 w-full">
+        <div className="flex flex-col md:flex-row gap-3 w-full">
+          <div className="flex flex-row justify-between w-full">
+            <h4>24 Hour Low</h4>
+            {coin.low_24h ? <p>${coin.low_24h.toLocaleString()}</p> : null}
           </div>
-          <div className="right">
-            <div className="row">
-              <h4>Market Cap</h4>
-              {coin.market_data?.market_cap ? (
-                <p>${coin.market_data.market_cap.usd.toLocaleString()}</p>
-              ) : null}
-            </div>
-            <div className="row">
-              <h4>Circulating Supply</h4>
-              {coin.market_data ? (
-                <p>{coin.market_data.circulating_supply}</p>
-              ) : null}
-            </div>
+          <div className="flex flex-row justify-between w-full">
+            <h4>24 Hour High</h4>
+            {coin.high_24h ? (
+              <p>${coin.high_24h.toLocaleString()}</p>
+            ) : null}{" "}
+          </div>
+        </div>
+
+        <div className="flex flex-col md:flex-row gap-3 w-full">
+          <div className="flex flex-row justify-between w-full">
+            <h4>Market Cap</h4>
+            {coin.market_cap ? (
+              <p>${coin.market_cap.toLocaleString()}</p>
+            ) : null}
+          </div>
+          <div className="flex flex-row justify-between w-full">
+            <h4>Circulating Supply</h4>
+            {coin.circulating_supply ? <p>{coin.circulating_supply.toLocaleString()}</p> : null}
           </div>
         </div>
       </div>
 
-      <div className="content">
-        <div className="about">
+      <div className="">
+        <div className="">
           <h3>About</h3>
           <p>{coin.description}</p>
         </div>

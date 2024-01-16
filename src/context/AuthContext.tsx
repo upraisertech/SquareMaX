@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import {
   SetStateAction,
   createContext,
@@ -29,6 +29,7 @@ const INITIAL_STATE = {
   setIsAuthenticated: () => {},
   checkAuthUser: async () => false as boolean,
   mode: "",
+  show: true,
   forex: [],
   coins: false,
   toggleMode: () => {},
@@ -46,6 +47,7 @@ interface IContextType {
   checkAuthUser: () => Promise<boolean>;
   mode: string;
   forex: any[];
+  show: boolean;
   coins: any; // Update type to boolean
   toggleMode: () => void;
   fetchData: () => void;
@@ -55,7 +57,8 @@ interface IContextType {
 const AuthContext = createContext<IContextType>(INITIAL_STATE);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+  const [show, setShow] = useState(true);
   const [user, setUser] = useState(INITIAL_USER);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -102,6 +105,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  // useEffect(() => {
+  //   const cookieFallback = localStorage.getItem("cookieFallback");
+  //   if (
+  //     cookieFallback === "[]" ||
+  //     cookieFallback === null ||
+  //     cookieFallback === undefined
+  //   ) {
+  //     navigate("/calculator");
+  //   }
+
+  //   checkAuthUser();
+  // }, []);
   useEffect(() => {
     const cookieFallback = localStorage.getItem("cookieFallback");
     if (
@@ -109,7 +124,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       cookieFallback === null ||
       cookieFallback === undefined
     ) {
-      navigate("/calculator");
+      setShow(false);
     }
 
     checkAuthUser();
@@ -131,8 +146,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   // useEffect(() => {
-  // // setTimeout(() => {
-  // // }, 2000);
+  // setTimeout(() => {
+  // }, 2000);
   // }, [])
 
   const fetchForexData = async () => {
@@ -170,6 +185,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     user,
     setUser,
     toggleMode,
+    show,
     mode,
     forex,
     coins,
