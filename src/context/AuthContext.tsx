@@ -1,16 +1,22 @@
 import { useNavigate } from "react-router-dom";
-import { SetStateAction, createContext, useContext, useEffect, useState } from "react";
-import axios from 'axios'
+import {
+  SetStateAction,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import axios from "axios";
 import { IUser } from "@/types";
 import { getCurrentUser } from "@/lib/appwrite/api";
 
 export const INITIAL_USER: IUser = {
-  id: '',
-  name: '',
-  username: '',
-  email: '',
-  imageUrl: '',
-  bio: '',
+  id: "",
+  name: "",
+  username: "",
+  email: "",
+  imageUrl: "",
+  bio: "",
   followers: [], // Update to an empty array
   verified: false,
 };
@@ -42,7 +48,7 @@ interface IContextType {
   forex: any[];
   coins: any; // Update type to boolean
   toggleMode: () => void;
-  // fetchData: () => void;
+  fetchData: () => void;
   fetchForexData: () => void;
 }
 
@@ -109,39 +115,31 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     checkAuthUser();
   }, []);
 
+  const fetchData = async () => {
+    const url =
+      "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=500&page=1&sparkline=false";
 
+    axios
+      .get(url)
+      .then((response: { data: SetStateAction<never[]> }) => {
+        setCoin(response.data);
+        // console.log(response.data)
+      })
+      .catch((error: any) => {
+        console.log(error);
+      });
+  };
 
-  // const fetchData = async () => {
-  //   try {
-  //     const response = await fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=200&page=1&sparkline=false`);
-  //     if (!response.ok) {
-  //       throw new Error("Network response was not ok");
-  //     }
-  //     const data = await response.json();
-  //     setCoin(data.data);
-  //     console.log(data.data);
-  //   } catch (error) {
-  //     console.error("Error fetching coin data:", error);
-  //   } finally {
-  //     // setIsLoading(false);
-  //   }
-  // };
-  const url = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=500&page=1&sparkline=false'
-
-  useEffect(() => {
-  setTimeout(() => {
-    axios.get(url).then((response: { data: SetStateAction<never[]>; }) => {
-      setCoin(response.data)
-      // console.log(response.data)
-    }).catch((error: any) => {
-      console.log(error)
-    })
-  }, 2000);
-  }, [])
+  // useEffect(() => {
+  // // setTimeout(() => {
+  // // }, 2000);
+  // }, [])
 
   const fetchForexData = async () => {
     try {
-      const response = await fetch(`https://www.rebatekingfx.com/api/live-chart/datafeed/search?lang=en`);
+      const response = await fetch(
+        `https://www.rebatekingfx.com/api/live-chart/datafeed/search?lang=en`
+      );
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -155,6 +153,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   useEffect(() => {
+    fetchData();
     fetchForexData();
   }, []);
 
@@ -174,6 +173,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     mode,
     forex,
     coins,
+    fetchData,
     fetchForexData,
     isLoading,
     isAuthenticated,

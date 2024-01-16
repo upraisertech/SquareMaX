@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useUserContext } from "@/context/AuthContext";
 import { useNavigate } from "react-router-dom";
 // import { useLocation } from "react-router-dom";
@@ -19,7 +19,7 @@ interface Coin {
 }
 
 const BasicTablePage = () => {
-  const { coins } = useUserContext();
+  const { coins, fetchData } = useUserContext();
   let navigate = useNavigate();
 
   // const numberWithCommas = (x: string) => {
@@ -45,9 +45,13 @@ const BasicTablePage = () => {
     }
   };
 
-  // useEffect(() => {
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  // setTimeout(() => {
   //   fetchData();
-  // }, []);
+  // }, 2000);
 
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [filteredHistory, setFilteredHistory] = useState<Coin[]>(coins);
@@ -139,7 +143,7 @@ const BasicTablePage = () => {
                         ${abbreviateMarketCap(coin.market_cap * 1)}
                       </p>
                       <p className="hide-mobile">
-                        ${(coin.total_volume.toLocaleString())}
+                        ${coin.total_volume.toLocaleString()}
                       </p>
                     </div>
                   );
