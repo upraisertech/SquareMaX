@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 // import { useToast } from "@/components/ui/use-toast";
 import { Loader, UserCard, NoAuth } from "@/components/shared";
-import { useGetRecentPosts, useGetUsers } from "@/lib/react-query/queries";
+import { useGetUsers } from "@/lib/react-query/queries";
 import { useUserContext } from "@/context/AuthContext";
 
 const Home = () => {
@@ -65,7 +65,7 @@ const Home = () => {
           <h2 className="h3-bold md:h2-bold text-left w-full">
             SquareMax Portfolio Battles
           </h2>
-          {!show ? (
+          {show ? (
             <NoAuth />
           ) : (
             <ul className="flex flex-col flex-1 gap-9 w-full">
