@@ -1,5 +1,5 @@
 // import { Models } from "appwrite";
-// import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 // import { useToast } from "@/components/ui/use-toast";
 import { Loader, UserCard, NoAuth } from "@/components/shared";
@@ -7,7 +7,21 @@ import { useGetRecentPosts, useGetUsers } from "@/lib/react-query/queries";
 import { useUserContext } from "@/context/AuthContext";
 
 const Home = () => {
-  const { show } = useUserContext();
+  const { checkAuthUser } = useUserContext();
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    const cookieFallback = localStorage.getItem("cookieFallback");
+    if (
+      cookieFallback === "[]" ||
+      cookieFallback === null ||
+      cookieFallback === undefined
+    ) {
+      setShow(true);
+    }
+
+    checkAuthUser();
+  }, []);
 
   const {
     data: creators,
@@ -15,7 +29,7 @@ const Home = () => {
     isError: isErrorCreators,
   } = useGetUsers(10);
 
-  const { isError: isErrorPosts } = useGetRecentPosts();
+  // const { isError: isErrorPosts } = useGetRecentPosts();
 
   // const { data: postsData, isError: isErrorPosts } = useGetRecentPosts();
   // const [sortedPosts, setSortedPosts] = useState<Models.Document[]>([]);
@@ -34,12 +48,9 @@ const Home = () => {
   //   }
   // }, [postsData]);
 
-  if (isErrorPosts || isErrorCreators) {
+  if (isErrorCreators) {
     return (
       <div className="flex flex-1">
-        <div className="home-container">
-          <p className="body-medium text-light-1">Something bad happened</p>
-        </div>
         <div className="home-creators">
           <p className="body-medium text-light-1">Something bad happened</p>
         </div>
@@ -52,9 +63,9 @@ const Home = () => {
       <div className="home-container h-screen">
         <div className="home-posts w-full">
           <h2 className="h3-bold md:h2-bold text-left w-full">
-            Portfilo Battle
+            SquareMax Portfolio Battles
           </h2>
-          {show ? (
+          {!show ? (
             <NoAuth />
           ) : (
             <ul className="flex flex-col flex-1 gap-9 w-full">
@@ -71,7 +82,7 @@ const Home = () => {
         {isUserLoading && !creators ? (
           <Loader />
         ) : (
-          <ul className="grid 2xl:grid-cols-2 gap-6">
+          <ul className="flex flex-col mx-auto gap-6 mt-12 pb-[10rem] w-[15em] h-screen fixed overflow-y-auto">
             {creators?.documents.map((creator) => (
               <li key={creator?.$id}>
                 <UserCard user={creator} />
