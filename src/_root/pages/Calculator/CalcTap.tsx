@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Forex from "./Forex/index";
 import Crypto from "./Crypto/index";
 import Percentage from "./Percentage/index";
+import Normal from "./Normal/index";
 
 const SettingsHeader = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -91,7 +92,7 @@ const SettingsHeader = () => {
                 </div>
               </button>
 
-              <button
+              {/* <button
                 className={`py-2 text-[17px] h-[40px] focus:outline-none ${
                   activeTab === 5 ? "text-primary-A2" : "text-black"
                 }`}
@@ -99,7 +100,7 @@ const SettingsHeader = () => {
                 <div className="flex flex-col gap-0.5 items-center justify-center px-3">
                   <div className="text-[17px] w-auto">Item 2</div>
                 </div>
-              </button>
+              </button> */}
             </ul>
           )}
         </div>
@@ -123,7 +124,7 @@ const SettingsHeader = () => {
       )}
       {activeTab === 4 && (
         <div>
-          <Crypto />
+          <Normal />
         </div>
       )}
       {activeTab === 5 && (

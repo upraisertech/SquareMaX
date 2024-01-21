@@ -109,12 +109,12 @@ function CryptoCal() {
   }, []);
 
   return (
-    <div className="flex flex-col gap-12 md:w-full md:ml-[3em] mx-3 text-start md:items-start justify-between">
-      <div className="flex flex-col gap-3 text-start items-center justify-center">
-        <div className="flex flex-col md:flex-row gap-3 text-start items-center justify-center w-full">
+    <div className="flex flex-col lg:flex-row gap-12 md:w-full mx-3 text-start items-start justify-center">
+      <div className="flex flex-col gap-3 mr-5 text-start items-center justify-center">
+        <div className="flex flex-col lg:flex-row gap-3 text-start items-center justify-center w-full">
           <div className="bg-none flex-col flex w-full">
             <div className="label">
-              <span className="label-text">Instrument</span>
+              <span className="label-text">Instrument🎸</span>
             </div>
             <div className="py-3 px-3 w-full text-start rounded-md border-1 bg-white text-black items-start justify-center focus-within:ring-1 ring-primary-A1">
               <div
@@ -175,7 +175,7 @@ function CryptoCal() {
 
           <label className="w-full">
             <div className="">
-              <span className="label-text">Deposit currency</span>
+              <span className="label-text">Deposit currency💰</span>
             </div>
             <select className="select mt-2 p-3 rounded-md select-bordered bg-white text-black w-full">
               <option disabled selected>
@@ -202,7 +202,7 @@ function CryptoCal() {
 
           <label className="w-full">
             <div className="label">
-              <span className="label-text">Risk Percentage</span>
+              <span className="label-text">Risk Percentage📉</span>
             </div>
             <input
               type="text"
@@ -252,6 +252,7 @@ function CryptoCal() {
         </button>
       </div>
       <div>
+        <h3 className="h3-bold mb-3 text-light-1">👇🏻Results👇🏻</h3>
         <Results positionSize={positionSize} moneyRisk={moneyRisk} forex={[]} />
       </div>
     </div>

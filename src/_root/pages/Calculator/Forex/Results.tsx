@@ -10,7 +10,7 @@ interface CryptoCalResultsProps {
   const ForexCalResults: FC<CryptoCalResultsProps> = ({positionSize, moneyRisk}): ReactElement => {
 
   return (
-    <div className={`grid grid-cols-2 lg:grid-cols-3 mb-[5em] gap-3 text-start items-center justify-center`}>
+    <div className={`grid grid-cols-2 lg:grid-cols-1 mb-[5em] gap-3 text-start items-center justify-center`}>
       <div className="">
         <div className="text-xs font-normal leading-[18px]">Money at risk</div>
         <input

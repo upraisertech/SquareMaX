@@ -8,20 +8,17 @@ const PercentageCalculator: React.FC<Props> = () => {
   const [value, setValue] = useState<string>("");
   const [percentage, setPercentage] = useState<string>("");
   const [result, setResult] = useState<string>("0");
-  localStorage.setItem("result", result);
 
   const numberWithCommas = (x: string): string => {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
-  const calculatePercentage = () => {
+  const calculateHandle = () => {
     const val = parseFloat(value.replace(/,/g, ""));
     const percent = parseFloat(percentage.replace(/,/g, ""));
-    localStorage.setItem("value", value);
-    localStorage.setItem("percentage", percentage);
 
     if (!isNaN(val) && !isNaN(percent)) {
-      const calculatedResult = (val * percent) / 100;
+      const calculatedResult = val - percent;
       setResult(numberWithCommas(calculatedResult.toFixed(3))); // Format result with commas and keep 2 decimal places
     } else {
       setResult("0");
@@ -37,11 +34,49 @@ const PercentageCalculator: React.FC<Props> = () => {
     const input = e.target.value.replace(/[^\d.]/g, ""); // Allowing only digits and a dot for decimal
     setPercentage(input);
   };
-  
+
+  const handleButtonClick = (buttonValue: string) => {
+    if (buttonValue === "C") {
+      // Clear values
+      setValue("");
+      setPercentage("");
+    } else if (buttonValue === "←") {
+      // Backspace
+      setValue(value.slice(0, -1));
+    } else {
+      // Append digit or dot to the appropriate input
+      if (isNaN(parseFloat(percentage))) {
+        setValue((prev) => prev + buttonValue);
+      } else {
+        setPercentage((prev) => prev + buttonValue);
+      }
+    }
+  };
+
+  const renderCalculatorButtons = () => {
+    const buttons = [
+      "7", "8", "9", "/",
+      "4", "5", "6", "*",
+      "1", "2", "3", "-",
+      "0", ".", "=", "+",
+      "C", "←"
+    ];
+
+    return buttons.map((button) => (
+      <button
+        key={button}
+        className="calculator-button"
+        onClick={() => handleButtonClick(button)}
+      >
+        {button}
+      </button>
+    ));
+  };
+
   const loadUserInputFromLocalStorage = () => {
-    const savedValue = localStorage.getItem("value");
-    const savedPercentage = localStorage.getItem("percentage");
-    const savedResult = localStorage.getItem("result");
+    const savedValue = localStorage.getItem("value1");
+    const savedPercentage = localStorage.getItem("value2");
+    const savedResult = localStorage.getItem("results");
 
     if (savedValue) {
       setValue(savedValue);
@@ -64,7 +99,8 @@ const PercentageCalculator: React.FC<Props> = () => {
     <div
       className={`flex flex-col p-3 md:w-[550px] mx-auto items-center justify-center ${
         mode === "dark" ? "white" : ""
-      }`}>
+      }`}
+    >
       <div className="text-2xl text-left font-bold mb-4 w-full">
         Percentage Calculator
       </div>
@@ -97,6 +133,10 @@ const PercentageCalculator: React.FC<Props> = () => {
         </label>
       </div>
 
+      <div className="calculator-buttons">
+        {renderCalculatorButtons()}
+      </div>
+
       <div className="my-4 md:my-8 p-3 border-1 border-black bg-white text-black rounded-md w-full">
         <p>
           Result: <span className="font-bold">{result}</span>
@@ -105,7 +145,8 @@ const PercentageCalculator: React.FC<Props> = () => {
 
       <button
         className="px-12 py-3 mb-[16em] text-white rounded-full bg-primary-A1 w-full"
-        onClick={calculatePercentage}>
+        onClick={calculateHandle}
+      >
         Calculate
       </button>
     </div>
