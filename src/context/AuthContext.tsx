@@ -1,6 +1,6 @@
 // import { useNavigate } from "react-router-dom";
 import {
-  SetStateAction,
+  // SetStateAction,
   createContext,
   useContext,
   useEffect,
@@ -9,6 +9,7 @@ import {
 import axios from "axios";
 import { IUser } from "@/types";
 import { getCurrentUser } from "@/lib/appwrite/api";
+// import { useParams } from "react-router-dom";
 
 export const INITIAL_USER: IUser = {
   id: "",
@@ -58,13 +59,14 @@ const AuthContext = createContext<IContextType>(INITIAL_STATE);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   // const navigate = useNavigate();
+  // const { page } = useParams();
   const [show, setShow] = useState(true);
   const [user, setUser] = useState(INITIAL_USER);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [mode, setMode] = useState("light");
   const [coins, setCoin] = useState([]);
-  const [forex, setForex] = useState([]);
+  const [forex] = useState([]);
 
   const toggleMode = () => {
     if (mode === "dark") {
@@ -131,19 +133,64 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const fetchData = async () => {
-    const url =
-      "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=500&page=1&sparkline=false";
-
-    axios
-      .get(url)
-      .then((response: { data: SetStateAction<never[]> }) => {
-        setCoin(response.data);
-        // console.log(response.data)
-      })
-      .catch((error: any) => {
-        console.log(error);
-      });
+    const url = 'https://api.livecoinwatch.com/coins/list';
+    const apiKey = 'b67d5e20-9a1e-43ce-9642-81a3260ea30d';
+  
+    try {
+      const response = await axios.post(
+        url,
+        {
+          currency: 'BTC',
+          sort: 'rank',
+          order: 'ascending',
+          offset: 0,
+          limit: 2000,
+          meta: true,
+        },
+        {
+          headers: {
+            'content-type': 'application/json',
+            'x-api-key': apiKey,
+          },
+        }
+      );
+  
+      // Assuming that the response.data is an array
+      setCoin(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
+  
+  // const fetchData = async () => {
+  //   const url =`https://api.livecoinwatch.com/coins/list?x-api-key=b67d5e20-9a1e-43ce-9642-81a3260ea30d`;
+  //     // `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=${page}60&page=1&sparkline=false`;
+  //     await fetch(new Request("https://api.livecoinwatch.com/coins/list"), {
+  //       method: "POST",
+  //       headers: new Headers({
+  //         "content-type": "application/json",
+  //         "x-api-key": "<YOUR_API_KEY>",
+  //       }),
+  //       body: JSON.stringify({
+  //         currency: "USD",
+  //         sort: "rank",
+  //         order: "ascending",
+  //         offset: 0,
+  //         limit: 2,
+  //         meta: false,
+  //       }),
+  //     });
+  //   axios
+  //     .get(url)
+  //     .then((response: { data: SetStateAction<never[]> }) => {
+  //       setCoin(response.data);
+  //       // console.log(response.data)
+  //     })
+  //     .catch((error: any) => {
+  //       console.log(error);
+  //     });
+  // };
 
   // useEffect(() => {
   // setTimeout(() => {
@@ -151,20 +198,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   // }, [])
 
   const fetchForexData = async () => {
-    try {
-      const response = await fetch(
-        `https://www.rebatekingfx.com/api/live-chart/datafeed/search?lang=en`
-      );
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const data = await response.json();
-      setForex(data);
-    } catch (error) {
-      console.error("Error fetching forex data:", error);
-    } finally {
-      // setIsLoading(false);
-    }
+   
   };
 
   useEffect(() => {

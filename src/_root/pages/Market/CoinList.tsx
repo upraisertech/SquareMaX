@@ -6,14 +6,14 @@ import { FaSearch } from "react-icons/fa";
 import "./coin.css";
 
 interface Coin {
-  market_cap_rank: any;
+  rank: any;
   price_change_percentage_24h: null;
-  total_volume: any;
+  volume: any;
   name: string;
-  image: string;
-  symbol: string;
-  current_price: number;
-  market_cap: number;
+  png32: string;
+  code: string;
+  rate: number;
+  cap: number;
   toFixed: number;
   // Add any other properties here as needed
 }
@@ -32,26 +32,22 @@ const BasicTablePage = () => {
     return parts.join(".");
   };
 
-  const abbreviateMarketCap = (market_cap: number) => {
-    if (market_cap >= 1000000) {
-      const abbreviatedMarketCap = (market_cap / 1000000000).toFixed(2);
+  const abbreviateMarketCap = (cap: number) => {
+    if (cap >= 1000000) {
+      const abbreviatedMarketCap = (cap / 1000000000).toFixed(2);
       return `${abbreviatedMarketCap}M`;
     }
-    if (market_cap >= 1000) {
-      const abbreviatedMarketCap = (market_cap / 1000).toFixed(2);
+    if (cap >= 1000) {
+      const abbreviatedMarketCap = (cap / 1000).toFixed(2);
       return `${abbreviatedMarketCap}K`;
     } else {
-      return numberWithCommas(market_cap.toFixed(2));
+      return numberWithCommas(cap.toFixed(2));
     }
   };
 
   useEffect(() => {
     fetchData();
   }, []);
-
-  // setTimeout(() => {
-  //   fetchData();
-  // }, 2000);
 
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [filteredHistory, setFilteredHistory] = useState<Coin[]>(coins);
@@ -61,7 +57,7 @@ const BasicTablePage = () => {
     setFilteredHistory(
       coins.filter(
         (coin: Coin) =>
-          coin.symbol.toLowerCase().includes(value.toLowerCase()) ||
+          coin.code.toLowerCase().includes(value.toLowerCase()) ||
           coin.name.toLowerCase().includes(value.toLowerCase())
       )
     );
@@ -90,26 +86,29 @@ const BasicTablePage = () => {
 
       <div className="inline-block w-full md:w-[95%] align-middle md:mx-[2rem]">
         <div className="overflow-x-auto">
-          <table className="container">
-            <div className="heading gap-3">
-              <p>#</p>
-              <p className="coin-name">Coin</p>
-              <p>Price</p>
-              <p>24h</p>
-              <p className="">Mkt Cap</p>
-              <p className="hide-mobile">Volume</p>
-            </div>
-            <div className="w-full text-left">
+          <table className="container justify-start items-center">
+            <thead className="">
+              <tr className="font-bold text-white text-sm leading-normal capitalize">
+                <th>#</th>
+                <th className="coin-name">Coin</th>
+                <th>Price</th>
+                <th>24h</th>
+                <th className="">Mkt Cap</th>
+                <th className="hide-mobile">Volume</th>
+              </tr>
+            </thead>
+
+            <tbody className="w-full text-left">
               {filteredHistory.length !== 0 ? (
                 filteredHistory.map((coin) => {
                   return (
-                    <div
+                    <tr
                       onClick={() => navigate(`/market/${coin.name}`)}
                       className="w-full coin-row gap-3">
-                      <p>{coin.market_cap_rank}</p>
-                      <p className="flex py-3 gap-2 mr-auto justify-start items-center">
+                      <td>{coin.rank}</td>
+                      <td className="flex py-3 gap-2 mr-auto justify-start items-center">
                         <img
-                          src={coin.image}
+                          src={coin.png32}
                           className="w-[20px]"
                           alt={coin.name}
                         />
@@ -118,14 +117,14 @@ const BasicTablePage = () => {
                             {coin.name}
                           </div>
                           <div className="uppercase text-[12px] md:text-[10px]">
-                            {coin.symbol}
+                            {coin.code}
                           </div>
                         </div>
-                      </p>
-                      <p className="flex flex-col text-left mr-auto items-start">
-                        ${coin.current_price.toLocaleString()}
-                      </p>
-                      <p
+                      </td>
+                      <td className="flex flex-col text-left mr-auto items-start">
+                        ${coin.rate.toLocaleString()}
+                      </td>
+                      {/* <td
                         className={`flex flex-col text-right mr-auto items-start
                           ${
                             coin.price_change_percentage_24h &&
@@ -138,47 +137,29 @@ const BasicTablePage = () => {
                           ? (coin.price_change_percentage_24h * 1).toFixed(2)
                           : "N/A"}
                         %
-                      </p>
-                      <p className="">
-                        ${abbreviateMarketCap(coin.market_cap * 1)}
-                      </p>
-                      <p className="hide-mobile">
-                        ${coin.total_volume.toLocaleString()}
-                      </p>
-                    </div>
+                      </td> */}
+                      <td className="">${abbreviateMarketCap(coin.cap * 1)}</td>
+                      <td className="hide-mobile">
+                        ${coin.volume.toLocaleString()}
+                      </td>
+                    </tr>
                   );
                 })
               ) : (
-                <td
-                  className="text-primary-A2 text-center text-[20px] pt-[7em] font-normal tracking-tight"
-                  colSpan={4}>
+                <div className="text-primary-A2 text-center text-[20px] pt-[7em] font-normal tracking-tight">
                   Not found
-                </td>
+                </div>
               )}
-            </div>
+            </tbody>
           </table>
         </div>
       </div>
+      <>
+        <div>1</div>
+        <div>2</div>
+      </>
     </div>
   );
 };
 
-// const columns = [
-//   {
-//     label: "#",
-//     field: "harsh",
-//   },
-//   {
-//     label: "All coins",
-//     field: "all_coins",
-//   },
-//   {
-//     label: "Price",
-//     field: "price",
-//   },
-//   {
-//     label: "Market cap",
-//     field: "marketCap",
-//   },
-// ];
 export default BasicTablePage;
