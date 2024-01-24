@@ -3,10 +3,10 @@ import Results from "./Results";
 import { useUserContext } from "@/context/AuthContext";
 
 interface Coin {
-  symbol: string;
+  code: string;
   name: string;
-  current_price: string;
-  image: string;
+  rate: string;
+  png64: string;
   // Add any other properties here as needed
 }
 export interface IListsProps {
@@ -96,9 +96,8 @@ function CryptoCal() {
     setFilteredHistory(
       coins.filter(
         (coin: Coin) =>
-          coin.symbol.toLowerCase().includes(value.toLowerCase()) ||
-          coin.name.toLowerCase().includes(value.toLowerCase()) ||
-          coin.current_price.toLowerCase().includes(value.toLowerCase())
+          coin.code.toLowerCase().includes(value.toLowerCase()) ||
+          coin.name.toLowerCase().includes(value.toLowerCase())
       )
     );
   };
@@ -116,7 +115,7 @@ function CryptoCal() {
             <div className="label">
               <span className="label-text">Instrument🎸</span>
             </div>
-            <div className="py-3 px-3 w-full text-start rounded-md border-1 bg-white text-black items-start justify-center focus-within:ring-1 ring-primary-A1">
+            <div className="py-3 px-3 w-full text-start rounded-md border-1 bg-white text-black items-start justify-center focus-within:ring-1 ring-primary-A1 cursor-pointer">
               <div
                 onClick={HandleApi}
                 className="flex flex-col gap-2.5 items-start justify-start w-auto">
@@ -126,11 +125,11 @@ function CryptoCal() {
                     {selectedInstrument ? (
                       <div className="flex flex-row justify-center items-center gap-3">
                         <img
-                          src={selectedInstrument.image}
+                          src={selectedInstrument.png64}
                           className="w-[20px] rounded-sm"
                           alt=""
                         />
-                        {selectedInstrument.name} ({selectedInstrument.symbol})
+                        {selectedInstrument.name} ({selectedInstrument.code})
                       </div>
                     ) : (
                       "Select Pair"
@@ -151,19 +150,19 @@ function CryptoCal() {
                   {filteredHistory.map((coin, index) => (
                     <div
                       key={index + 1}
-                      className="text-[13px] px-2 py-3 hover:bg-gray-100"
+                      className="text-[13px] cursor-pointer px-2 py-3 hover:bg-gray-100"
                       onClick={() => {
                         handleInstrumentSelect(coin);
                         setIsOpen(!isOpen);
                       }}>
                       <div className="flex flex-row gap-3 items-center justify-start hover:bg-gray-100">
                         <img
-                          src={coin.image}
+                          src={coin.png64}
                           className="w-[25px] rounded-sm"
                           alt=""
                         />
                         <div className="py-1">
-                          {coin.name} ({coin.symbol})
+                          {coin.name} ({coin.code})
                         </div>
                       </div>
                     </div>
@@ -238,7 +237,7 @@ function CryptoCal() {
             <input
               type="number"
               placeholder={price}
-              value={selectedInstrument ? (selectedInstrument.current_price) : ""}
+              value={selectedInstrument ? (selectedInstrument.rate) : ""}
               onChange={handlePriceChange}
               className="input text-black p-3 input-bordered bg-[white] rounded-md w-full"
             />

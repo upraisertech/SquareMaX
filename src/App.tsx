@@ -46,8 +46,7 @@ const App = () => {
           <Route index element={<Home />} />
           <Route path="/calculator" element={<Calculator />} />
           <Route path="/market" element={<Market />} />
-          <Route path="/market/:page" element={<Market />} />
-          <Route path="/market/:name" element={<CoinHistory />} />
+          <Route path="/history/:code" element={<CoinHistory />} />
           <Route path="/explore" element={<Explore />} />
           <Route path="/saved" element={<Saved />} />
           <Route path="/all-users" element={<AllUsers />} />

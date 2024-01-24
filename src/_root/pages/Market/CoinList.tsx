@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useUserContext } from "@/context/AuthContext";
 import { useNavigate } from "react-router-dom";
-// import { useLocation } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import "./coin.css";
 
@@ -10,7 +9,7 @@ interface Coin {
   price_change_percentage_24h: null;
   volume: any;
   name: string;
-  png32: string;
+  png64: string;
   code: string;
   rate: number;
   cap: number;
@@ -85,16 +84,15 @@ const BasicTablePage = () => {
       </div>
 
       <div className="inline-block w-full md:w-[95%] align-middle md:mx-[2rem]">
-        <div className="overflow-x-auto">
-          <table className="container justify-start items-center">
-            <thead className="">
+        <div className="w-full overflow-x-auto">
+          <table className="pr-[20px] lg:pr-0 ml-[25px] lg:ml-0">
+            <thead className="w-full">
               <tr className="font-bold text-white text-sm leading-normal capitalize">
-                <th>#</th>
-                <th className="coin-name">Coin</th>
-                <th>Price</th>
-                <th>24h</th>
-                <th className="">Mkt Cap</th>
-                <th className="hide-mobile">Volume</th>
+                <td align="center">#</td>
+                <td align="center">Coin</td>
+                <td align="center">Price</td>
+                <td align="center">Mkt Cap</td>
+                <td align="center">Volume</td>
               </tr>
             </thead>
 
@@ -103,14 +101,15 @@ const BasicTablePage = () => {
                 filteredHistory.map((coin) => {
                   return (
                     <tr
-                      onClick={() => navigate(`/market/${coin.name}`)}
+                      key={coin.rank}
+                      onClick={() => navigate(`/history/${coin.code}`)}
                       className="w-full coin-row gap-3">
                       <td>{coin.rank}</td>
-                      <td className="flex py-3 gap-2 mr-auto justify-start items-center">
+                      <td className="flex py-3 gap-2 justify-start items-center">
                         <img
-                          src={coin.png32}
+                          src={coin.png64}
                           className="w-[20px]"
-                          alt={coin.name}
+                          alt={coin?.name}
                         />
                         <div className="flex flex-col md:flex-row gap-x-3 justify-center items-start">
                           <div className="text-[12px] font-bold">
@@ -121,8 +120,8 @@ const BasicTablePage = () => {
                           </div>
                         </div>
                       </td>
-                      <td className="flex flex-col text-left mr-auto items-start">
-                        ${coin.rate.toLocaleString()}
+                      <td className="flex flex-col text-left items-start">
+                        ${(coin.rate * 1).toLocaleString()}
                       </td>
                       {/* <td
                         className={`flex flex-col text-right mr-auto items-start
@@ -139,8 +138,8 @@ const BasicTablePage = () => {
                         %
                       </td> */}
                       <td className="">${abbreviateMarketCap(coin.cap * 1)}</td>
-                      <td className="hide-mobile">
-                        ${coin.volume.toLocaleString()}
+                      <td className="">
+                        ${(coin.volume * 1).toLocaleString()}
                       </td>
                     </tr>
                   );
@@ -154,10 +153,6 @@ const BasicTablePage = () => {
           </table>
         </div>
       </div>
-      <>
-        <div>1</div>
-        <div>2</div>
-      </>
     </div>
   );
 };

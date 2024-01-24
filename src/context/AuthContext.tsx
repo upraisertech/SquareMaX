@@ -32,7 +32,7 @@ const INITIAL_STATE = {
   mode: "",
   show: true,
   forex: [],
-  coins: false,
+  coins: [],
   toggleMode: () => {},
   loading: false,
   fetchData: () => {},
@@ -49,7 +49,7 @@ interface IContextType {
   mode: string;
   forex: any[];
   show: boolean;
-  coins: any; // Update type to boolean
+  coins: any[]; // Update type to boolean
   toggleMode: () => void;
   fetchData: () => void;
   fetchForexData: () => void;
@@ -133,36 +133,34 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const fetchData = async () => {
-    const url = 'https://api.livecoinwatch.com/coins/list';
-    const apiKey = 'b67d5e20-9a1e-43ce-9642-81a3260ea30d';
+    const URL = "https://api.livecoinwatch.com/coins/list";
+    const API_KEY = "b67d5e20-9a1e-43ce-9642-81a3260ea30d";
   
     try {
       const response = await axios.post(
-        url,
+        URL,
         {
-          currency: 'BTC',
-          sort: 'rank',
-          order: 'ascending',
-          offset: 0,
-          limit: 2000,
-          meta: true,
+          "currency": "USD",
+          "sort": "rank",
+          "order": "ascending",
+          "offset": 0,
+          "limit": 500,
+          "meta": true
         },
         {
           headers: {
-            'content-type': 'application/json',
-            'x-api-key': apiKey,
+            "content-type": "application/json",
+            "x-api-key": API_KEY,
           },
         }
       );
-  
-      // Assuming that the response.data is an array
       setCoin(response.data);
       console.log(response.data);
     } catch (error) {
-      console.log(error);
+      console.error("Error fetching data");
     }
   };
-  
+
   // const fetchData = async () => {
   //   const url =`https://api.livecoinwatch.com/coins/list?x-api-key=b67d5e20-9a1e-43ce-9642-81a3260ea30d`;
   //     // `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=${page}60&page=1&sparkline=false`;
@@ -197,9 +195,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   // }, 2000);
   // }, [])
 
-  const fetchForexData = async () => {
-   
-  };
+  const fetchForexData = async () => {};
 
   useEffect(() => {
     fetchData();
