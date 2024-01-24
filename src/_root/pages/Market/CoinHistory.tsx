@@ -100,7 +100,7 @@ const CoinHistory = () => {
             <div className="flex flex-row gap-3">
               <div className="text-[20px] font-bold">
                 {list.rate ? (
-                  <h1>${(list.rate * 1).toLocaleString()}</h1>
+                  <h1>${(list.rate).toFixed(8)}</h1>
                 ) : null}
               </div>
               <div

@@ -109,8 +109,8 @@ function CryptoCal() {
 
   return (
     <div className="flex flex-col lg:flex-row gap-12 md:w-full mx-3 text-start items-start justify-center">
-      <div className="flex flex-col gap-3 mr-5 text-start items-center justify-center">
-        <div className="flex flex-col lg:flex-row gap-3 text-start items-center justify-center w-full">
+      <div className="flex flex-col gap-3 mr-5 w-full md:w-auto text-start items-center justify-center">
+        <div className="flex flex-col xl:flex-row gap-3 text-start items-center justify-center w-full">
           <div className="bg-none flex-col flex w-full">
             <div className="label">
               <span className="label-text">Instrument🎸</span>
