@@ -146,7 +146,7 @@ const BasicTablePage = () => {
                           ${abbreviateMarketCap(coin.cap * 1)}
                         </td>
                         <td className="">
-                          ${abbreviateMarketCap(coin.volume * 1).toLocaleString()}
+                          ${(coin.volume * 1).toLocaleString()}
                         </td>
                       </tr>
                     );
