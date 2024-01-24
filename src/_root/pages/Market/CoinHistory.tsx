@@ -35,7 +35,7 @@ const CoinHistory = () => {
 
   const fetchData = async () => {
     const URL = "https://api.livecoinwatch.com/coins/single/history";
-    const API_KEY = "b67d5e20-9a1e-43ce-9642-81a3260ea30d";
+    const API_KEY = "da8a11ff-3306-4ab8-b471-9da7a0286bb4";
 
     try {
       console.log(code);

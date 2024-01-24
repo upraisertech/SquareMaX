@@ -279,7 +279,42 @@
   }
 }
 
+/* -------------------------------------------- */
+/*------------------ pagination */
+/* -------------------------------------------- */
+.pagination {
+  display: flex;
+  justify-content: center;
+  column-gap: 15px;
+  align-items: center;
+}
+    
+.page {
+  width: Fixed (30px);
+  height: Hug (30px);
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: 1px solid #5D5FEF;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 15px;
+  color: #5D5FEF;
+}
 
+.page-active {
+  background: #5D5FEF;
+  color: white;
+}
+
+.paginate-btns {
+  border-radius: 4px;
+  padding: 12px 12px;
+  border: 1px solid #5D5FEF;
+}
+
+/* -------------------------------------------- */
+/*------------------ scrollbar */
+/* -------------------------------------------- */
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;

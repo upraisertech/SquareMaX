@@ -134,7 +134,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const fetchData = async () => {
     const URL = "https://api.livecoinwatch.com/coins/list";
-    const API_KEY = "b67d5e20-9a1e-43ce-9642-81a3260ea30d";
+    const API_KEY = "da8a11ff-3306-4ab8-b471-9da7a0286bb4";
   
     try {
       const response = await axios.post(
@@ -144,7 +144,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           "sort": "rank",
           "order": "ascending",
           "offset": 0,
-          "limit": 500,
+          "limit": 10470,
           "meta": true
         },
         {

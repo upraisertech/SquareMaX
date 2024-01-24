@@ -3,6 +3,11 @@ import { useUserContext } from "@/context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import "./coin.css";
+import ReactPaginate from "react-paginate";
+import {
+  MdOutlineKeyboardDoubleArrowLeft,
+  MdOutlineKeyboardDoubleArrowRight,
+} from "react-icons/md";
 
 interface Coin {
   rank: any;
@@ -20,6 +25,10 @@ interface Coin {
 const BasicTablePage = () => {
   const { coins, fetchData } = useUserContext();
   let navigate = useNavigate();
+  const [pageCount, setPageCount] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
+  const [currentPage, setCurrentPage] = useState<Coin[]>([]);
+  const PAGE_SIZE = 50;
 
   // const numberWithCommas = (x: string) => {
   //   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -66,6 +75,17 @@ const BasicTablePage = () => {
     );
   };
 
+  useEffect(() => {
+    const endOffset = itemOffset + PAGE_SIZE;
+    setCurrentPage(filteredHistory.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(filteredHistory.length / PAGE_SIZE));
+  }, [itemOffset, PAGE_SIZE, filteredHistory]);
+
+  const handlePageClick = (e: { selected: any }) => {
+    const selectedPage = e.selected;
+    setItemOffset(selectedPage * PAGE_SIZE);
+  };
+
   return (
     <div>
       <div
@@ -103,7 +123,7 @@ const BasicTablePage = () => {
 
               <tbody className="w-full text-left">
                 {filteredHistory.length !== 0 ? (
-                  filteredHistory.map((coin) => {
+                  currentPage.map((coin) => {
                     return (
                       <tr
                         key={coin.rank}
@@ -160,8 +180,23 @@ const BasicTablePage = () => {
             </table>
           </div>
         </div>
+        <div className="flex flex-row mt-5 items-center justify-center gap-4 w-full">
+          <ReactPaginate
+            breakLabel="..."
+            nextLabel={<MdOutlineKeyboardDoubleArrowRight />}
+            containerClassName="pagination"
+            pageClassName="page"
+            activeClassName="page-active"
+            previousClassName="paginate-btns rotate-240"
+            nextClassName="paginate-btns"
+            onPageChange={handlePageClick}
+            pageRangeDisplayed={2}
+            pageCount={pageCount} // Use the calculated pageCount based on filteredChapters
+            previousLabel={<MdOutlineKeyboardDoubleArrowLeft />}
+            renderOnZeroPageCount={null}
+          />
+        </div>
       </div>
-
     </div>
   );
 };
