@@ -86,7 +86,7 @@ const BasicTablePage = () => {
       <div className="inline-block w-full md:w-[95%] align-middle md:mx-[2rem]">
         <div className="w-full overflow-x-auto">
           <table className="pr-[20px] lg:pr-0 ml-[25px] lg:ml-0">
-            <thead className="w-full">
+            {/* <thead className="w-full">
               <tr className="font-bold text-white text-sm leading-normal capitalize">
                 <td align="center">#</td>
                 <td align="center">Coin</td>
@@ -94,7 +94,7 @@ const BasicTablePage = () => {
                 <td align="center">Mkt Cap</td>
                 <td align="center">Volume</td>
               </tr>
-            </thead>
+            </thead> */}
 
             <tbody className="w-full text-left">
               {filteredHistory.length !== 0 ? (
