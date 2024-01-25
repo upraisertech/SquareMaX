@@ -47,7 +47,7 @@ const LeftSidebar = () => {
                 <button
                   className="px-12 py-3 mb-[16em] text-white rounded-full bg-primary-A1 w-full"
                   onClick={() => navigate(`/sign-in`)}>
-                  Signin
+                  Sign in
                 </button>
               </div>
             )}

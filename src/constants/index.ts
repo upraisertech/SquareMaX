@@ -2,7 +2,7 @@ export const sidebarLinks = [
   {
     imgURL: "/assets/icons/home.svg",
     route: "/",
-    label: "Portfilo",
+    label: "Portfolio",
   },
   {
     imgURL: "/assets/icons/calculator.png",
@@ -40,7 +40,7 @@ export const bottombarLinks = [
   {
     imgURL: "/assets/icons/home.svg",
     route: "/",
-    label: "Portfilo",
+    label: "Portfolio",
   },
   {
     imgURL: "/assets/icons/calculator.png",
@@ -63,7 +63,7 @@ export const navdata = [
   {
     imgURL: "/assets/icons/home.svg",
     route: "/",
-    label: "Portfilo",
+    label: "Portfolio",
   },
   // {
   //   imgURL: "/assets/icons/wallpaper.svg",

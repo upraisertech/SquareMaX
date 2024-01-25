@@ -180,7 +180,10 @@ function CryptoCal() {
               <option disabled selected>
                 Deposit currency
               </option>
-              <option> </option>
+              <option>USDT</option>
+              <option>BTC</option>
+              <option>ETH</option>
+              <option>SOL</option>
             </select>
           </label>
         </div>
@@ -237,8 +240,8 @@ function CryptoCal() {
             <input
               type="number"
               placeholder={price}
-              value={selectedInstrument ? (selectedInstrument.rate) : ""}
-              onChange={handlePriceChange}
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
               className="input text-black p-3 input-bordered bg-[white] rounded-md w-full"
             />
           </label>
