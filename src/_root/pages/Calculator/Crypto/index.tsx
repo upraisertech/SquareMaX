@@ -240,8 +240,8 @@ function CryptoCal() {
             <input
               type="number"
               placeholder={price}
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
+              value={selectedInstrument ? (selectedInstrument.rate) : ""}
+              onChange={handlePriceChange}
               className="input text-black p-3 input-bordered bg-[white] rounded-md w-full"
             />
           </label>
