@@ -89,7 +89,7 @@ const BasicTablePage = () => {
   return (
     <div>
       <div
-        className="w-full h-screen pb-[4em] overflow-x-auto"
+        className="w-full h-screen pb-[-5em] overflow-y-auto"
         title="Cryptocurrency prices and signals">
         <div className="text-primary-A2 text-[20px] text-center font-bold w-auto">
           Cryptocurrency prices and signals
@@ -177,25 +177,28 @@ const BasicTablePage = () => {
                   </div>
                 )}
               </tbody>
+              <thead className="w-full">
+                <tr className="flex flex-row mt-5 px-3 items-center justify-center gap-4 w-full">
+                  <ReactPaginate
+                    breakLabel="..."
+                    nextLabel={<MdOutlineKeyboardDoubleArrowRight />}
+                    containerClassName="pagination"
+                    pageClassName="page"
+                    activeClassName="page-active"
+                    previousClassName="paginate-btns rotate-240"
+                    nextClassName="paginate-btns"
+                    onPageChange={handlePageClick}
+                    pageRangeDisplayed={2}
+                    pageCount={pageCount} // Use the calculated pageCount based on filteredChapters
+                    previousLabel={<MdOutlineKeyboardDoubleArrowLeft />}
+                    renderOnZeroPageCount={null}
+                  />
+                </tr>
+              </thead>
             </table>
           </div>
         </div>
-        <div className="flex flex-row mt-5 items-center justify-center gap-4 w-full">
-          <ReactPaginate
-            breakLabel="..."
-            nextLabel={<MdOutlineKeyboardDoubleArrowRight />}
-            containerClassName="pagination"
-            pageClassName="page"
-            activeClassName="page-active"
-            previousClassName="paginate-btns rotate-240"
-            nextClassName="paginate-btns"
-            onPageChange={handlePageClick}
-            pageRangeDisplayed={2}
-            pageCount={pageCount} // Use the calculated pageCount based on filteredChapters
-            previousLabel={<MdOutlineKeyboardDoubleArrowLeft />}
-            renderOnZeroPageCount={null}
-          />
-        </div>
+        <div className="flex flex-row mt-5 items-center justify-center gap-4 w-full"></div>
       </div>
     </div>
   );

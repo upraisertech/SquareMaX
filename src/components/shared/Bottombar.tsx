@@ -24,7 +24,7 @@ const Bottombar = () => {
   }, [handleScroll]);
 
   return (
-    <section className={`${isScrolled ? 'hidden' : ''} bottom-bar `}>
+    <section className={`${isScrolled ? 'hidden' : ''} bottom-bar mt-[-3.4em]`}>
       {bottombarLinks.map((link) => {
         const isActive = pathname === link.route;
         return (
