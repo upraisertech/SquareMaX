@@ -58,6 +58,8 @@ interface IContextType {
 const AuthContext = createContext<IContextType>(INITIAL_STATE);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
+  const API_URL = import.meta.env.VITE_API_URL;
+  const API_KEY = import.meta.env.VITE_API_KEY;
   // const navigate = useNavigate();
   // const { page } = useParams();
   const [show, setShow] = useState(true);
@@ -133,8 +135,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const fetchData = async () => {
-    const URL = "https://api.livecoinwatch.com/coins/list";
-    const API_KEY = "da8a11ff-3306-4ab8-b471-9da7a0286bb4";
+    const URL = `${API_URL}/coins/list`;
+    const KEY = `${API_KEY}`;
   
     try {
       const response = await axios.post(
@@ -150,7 +152,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         {
           headers: {
             "content-type": "application/json",
-            "x-api-key": API_KEY,
+            "x-api-key": KEY,
           },
         }
       );
@@ -160,35 +162,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       console.error("Error fetching data");
     }
   };
-
-  // const fetchData = async () => {
-  //   const url =`https://api.livecoinwatch.com/coins/list?x-api-key=b67d5e20-9a1e-43ce-9642-81a3260ea30d`;
-  //     // `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=${page}60&page=1&sparkline=false`;
-  //     await fetch(new Request("https://api.livecoinwatch.com/coins/list"), {
-  //       method: "POST",
-  //       headers: new Headers({
-  //         "content-type": "application/json",
-  //         "x-api-key": "<YOUR_API_KEY>",
-  //       }),
-  //       body: JSON.stringify({
-  //         currency: "USD",
-  //         sort: "rank",
-  //         order: "ascending",
-  //         offset: 0,
-  //         limit: 2,
-  //         meta: false,
-  //       }),
-  //     });
-  //   axios
-  //     .get(url)
-  //     .then((response: { data: SetStateAction<never[]> }) => {
-  //       setCoin(response.data);
-  //       // console.log(response.data)
-  //     })
-  //     .catch((error: any) => {
-  //       console.log(error);
-  //     });
-  // };
 
   // useEffect(() => {
   // setTimeout(() => {
