@@ -4,7 +4,7 @@
 
 - This React application is built using [Vite](https://vitejs.dev/).
 - It uses [Tailwind CSS](https://tailwindcss.com/)
-- The application is generated in JavaScript.
+- The application is generated in TypeScript.
 
 ## Pre-requisites
 
