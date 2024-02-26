@@ -68,7 +68,6 @@ const PercentageCalculator: React.FC<Props> = () => {
       <div className="text-2xl text-left font-bold mb-4 w-full">
         Percentage Calculator
       </div>
-
       <div className="flex flex-col md:flex-row gap-3 md:gap-6 text-start items-start justify-start w-full">
         <label className="w-full">
           <div className="label">
